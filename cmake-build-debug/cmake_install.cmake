@@ -1,4 +1,4 @@
-# Install script for directory: C:/Users/Ethann.SCHNEIDER/CLionProjects/BatailleNaval_ICT431_MA20
+# Install script for directory: C:/dev/BatailleNaval_ICT431_MA20
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -40,5 +40,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "C:/Users/Ethann.SCHNEIDER/CLionProjects/BatailleNaval_ICT431_MA20/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "C:/dev/BatailleNaval_ICT431_MA20/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
