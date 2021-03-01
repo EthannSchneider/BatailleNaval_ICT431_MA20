@@ -3,6 +3,7 @@ Name : Bataille naval
 Author : Ethann Schneider
 Version : beta 0.1
 */
+
 #include <stdio.h>
 
 //1 : 1 porte-avion (5 cases)
