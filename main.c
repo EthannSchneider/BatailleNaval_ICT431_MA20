@@ -17,8 +17,8 @@ int y = 0;
 //4 : 1 sous-marin (3 cases)
 //5 : 1 torpilleur (2 cases)
 int bateau[10][10] = {
-        {1,2,3,4,2,0,0,0,0,0},
-        {1,2,3,4,2,0,0,0,0,0},
+        {1,2,3,4,5,0,0,0,0,0},
+        {1,2,3,4,5,0,0,0,0,0},
         {1,2,3,4,0,0,0,0,0,0},
         {1,2,0,0,0,0,0,0,0,0},
         {1,0,0,0,0,0,0,0,0,0},
@@ -63,11 +63,66 @@ int tableau(){
     printf("   ╚═══╩═══╩═══╩═══╩═══╩═══╩═══╩═══╩═══╩═══╝\n");
 }
 
+int checkcouler(){
+    int porteavion = 0, croiseur = 0, contretorpilleur = 0, sousmarin = 0, torpilleur = 0,porteaviont = 0, croiseurt = 0, contretorpilleurt = 0, sousmarint = 0, torpilleurt = 0;
+    for (int i = 0; i < 10; i++) {
+        for (int j = 0; j < 10; j++) {
+            switch (bateau[i][j]) {
+                case 1:
+                    porteavion++;
+                    break;
+                case 2:
+                    croiseur++;
+                    break;
+                case 3:
+                    contretorpilleur++;
+                    break;
+                case 4:
+                    sousmarin++;
+                    break;
+                case 5:
+                    torpilleur++;
+                    break;
+            }
+            switch (tab[i][j]) {
+                case 1:
+                    porteaviont++;
+                    break;
+                case 2:
+                    croiseurt++;
+                    break;
+                case 3:
+                    contretorpilleurt++;
+                    break;
+                case 4:
+                    sousmarint++;
+                    break;
+                case 5:
+                    torpilleurt++;
+                    break;
+            }
+
+        }
+    }
+    if (porteavion == porteaviont){
+        printf("\nle porte-avion adverse a couler\n");
+    }else if (croiseur == croiseurt){
+        printf("\nle croiseur adverse a couler\n");
+    }else if (contretorpilleur == contretorpilleurt){
+        printf("\nle contre-torpilleur adverse a couler\n");
+    }else if (sousmarin == sousmarint){
+        printf("\nle sous-marin adverse a couler\n");
+    }else if (torpilleur == torpilleurt){
+        printf("\nle torpilleur adverse a couler\n");
+    }
+}
+
 int main() {
     char ychar;
     while (1){
         printf("\e[1;1H\e[2J");
         tableau();
+        checkcouler();
 
         do {
             printf("\nCoords 1 : ");
@@ -82,23 +137,25 @@ int main() {
             if (ychar <= 96 || ychar >= 107){printf("La lettre doit être entre a et k !");}
         } while (ychar <= 96 || ychar >= 107);
 
-        switch (bateau[x-1][y-1]) {
+        switch (bateau[y-1][x-1]) {
             case 0:
-                tab[x-1][y-1] = 1;
+                tab[y-1][x-1] = 1;
                 break;
             case 1:
-                tab[x-1][y-1] = 2;
+                tab[y-1][x-1] = 2;
                 break;
             case 2:
-                tab[x-1][y-1] = 2;
+                tab[y-1][x-1] = 2;
                 break;
             case 3:
-                tab[x-1][y-1] = 2;
+                tab[y-1][x-1] = 2;
                 break;
             case 4:
-                tab[x-1][y-1] = 2;
+                tab[y-1][x-1] = 2;
                 break;
-
+            case 5:
+                tab[y-1][x-1] = 2;
+                break;
 
         }
 
