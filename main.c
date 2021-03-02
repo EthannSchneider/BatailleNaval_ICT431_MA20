@@ -70,38 +70,25 @@ int checkcouler(){
             switch (bateau[i][j]) {
                 case 1:
                     porteavion++;
+                    if(tab[i][j] == 2){porteaviont++;}
                     break;
                 case 2:
                     croiseur++;
+                    if(tab[i][j] == 2){croiseurt++;}
                     break;
                 case 3:
                     contretorpilleur++;
+                    if(tab[i][j] == 2){contretorpilleurt++;}
                     break;
                 case 4:
                     sousmarin++;
+                    if(tab[i][j] == 2){sousmarint++;}
                     break;
                 case 5:
                     torpilleur++;
+                    if(tab[i][j] == 26){torpilleurt++;}
                     break;
             }
-            switch (tab[i][j]) {
-                case 1:
-                    porteaviont++;
-                    break;
-                case 2:
-                    croiseurt++;
-                    break;
-                case 3:
-                    contretorpilleurt++;
-                    break;
-                case 4:
-                    sousmarint++;
-                    break;
-                case 5:
-                    torpilleurt++;
-                    break;
-            }
-
         }
     }
     if (porteavion == porteaviont){
