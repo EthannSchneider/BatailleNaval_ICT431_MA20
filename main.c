@@ -112,12 +112,33 @@ int checkcouler(){
 }
 int winscreen(){
     printf("\e[1;1H\e[2J");
-    printf("__   __           __        ___       \n"
+    printf(""
+           "\n"
+           "\n"
+           "\n"
+           "\n"
+           "\n"
+           "\n"
+           "\n"
+           "\n"
+           "__   __           __        ___       \n"
            "\\ \\ / /__  _   _  \\ \\      / (_)_ __  \n"
            " \\ V / _ \\| | | |  \\ \\ /\\ / /| | '_ \\ \n"
            "  | | (_) | |_| |   \\ V  V / | | | | |\n"
            "  |_|\\___/ \\__,_|    \\_/\\_/  |_|_| |_|\n"
-           "                                      ");
+           "                                      "
+           "\n"
+           "\n"
+           "\n"
+           "\n"
+           "\n"
+           "\n"
+           "\n"
+           "\n"
+           "\n"
+           "\n");
+    scanf("%d");
+    printf("\e[1;1H\e[2J");
 }
 
 
@@ -126,7 +147,9 @@ int main() {
     while (win == 0){
         printf("\e[1;1H\e[2J");
         tableau();
+
         checkcouler();
+        if (win != 0){break;}
 
         do {
             printf("\nCoords 1 : ");
@@ -164,6 +187,6 @@ int main() {
         }
 
     }
-
+    winscreen();
     return 0;
 }
