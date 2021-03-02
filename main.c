@@ -5,6 +5,8 @@ Version : beta 0.1
 */
 
 #include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
 
 //1 : 1 porte-avion (5 cases)
 //2 : 1 croiseur (4 cases)
@@ -42,6 +44,7 @@ int tab[10][10] = {
 };
 
 int tableau(){
+    printf("\e[1;1H\e[2J");
     printf("╔═══╦═══╦═══╦═══╦═══╦═══╦═══╦═══╦═══╦═══╗\n║");
     for (int i = 0; i < 10; i++) {
         printf("%2d ║",tab[0][i]);
