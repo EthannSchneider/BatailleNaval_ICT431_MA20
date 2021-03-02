@@ -9,6 +9,7 @@ Version : beta 0.1
 
 int x = 0;
 int y = 0;
+int win = 0;
 
 //1 : 1 porte-avion (5 cases)
 //2 : 1 croiseur (4 cases)
@@ -85,7 +86,7 @@ int checkcouler(){
                     break;
                 case 5:
                     torpilleur++;
-                    if(tab[i][j] == 26){torpilleurt++;}
+                    if(tab[i][j] == 2){torpilleurt++;}
                     break;
             }
         }
@@ -105,11 +106,24 @@ int checkcouler(){
     if (torpilleur == torpilleurt){
         printf("\nle torpilleur adverse a couler\n");
     }
+    if (porteavion == porteaviont && croiseur == croiseurt && contretorpilleur == contretorpilleurt && sousmarin == sousmarint && torpilleur == torpilleurt){
+        win = 1;
+    }
 }
+int winscreen(){
+    printf("\e[1;1H\e[2J");
+    printf("__   __           __        ___       \n"
+           "\\ \\ / /__  _   _  \\ \\      / (_)_ __  \n"
+           " \\ V / _ \\| | | |  \\ \\ /\\ / /| | '_ \\ \n"
+           "  | | (_) | |_| |   \\ V  V / | | | | |\n"
+           "  |_|\\___/ \\__,_|    \\_/\\_/  |_|_| |_|\n"
+           "                                      ");
+}
+
 
 int main() {
     char ychar;
-    while (1){
+    while (win == 0){
         printf("\e[1;1H\e[2J");
         tableau();
         checkcouler();
