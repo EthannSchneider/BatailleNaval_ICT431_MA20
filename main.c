@@ -6,7 +6,6 @@ Version : beta 0.1
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <time.h>
 
 int x = 0;
 int y = 0;
@@ -93,13 +92,17 @@ int checkcouler(){
     }
     if (porteavion == porteaviont){
         printf("\nle porte-avion adverse a couler\n");
-    }else if (croiseur == croiseurt){
+    }
+    if (croiseur == croiseurt){
         printf("\nle croiseur adverse a couler\n");
-    }else if (contretorpilleur == contretorpilleurt){
+    }
+    if (contretorpilleur == contretorpilleurt){
         printf("\nle contre-torpilleur adverse a couler\n");
-    }else if (sousmarin == sousmarint){
+    }
+    if (sousmarin == sousmarint){
         printf("\nle sous-marin adverse a couler\n");
-    }else if (torpilleur == torpilleurt){
+    }
+    if (torpilleur == torpilleurt){
         printf("\nle torpilleur adverse a couler\n");
     }
 }
