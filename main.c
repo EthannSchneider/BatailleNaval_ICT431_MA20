@@ -47,6 +47,7 @@ int tab[10][10] = {
         {0,0,0,0,0,0,0,0,0,0}
 };
 
+
 int tableau(){
     printf("     1   2   3   4   5   6   7   8   9  10\n");
     printf("   ╔═══╦═══╦═══╦═══╦═══╦═══╦═══╦═══╦═══╦═══╗\n %c ║",97);
@@ -109,6 +110,7 @@ int checkcouler(){
     }
     if (porteavion == porteaviont && croiseur == croiseurt && contretorpilleur == contretorpilleurt && sousmarin == sousmarint && torpilleur == torpilleurt){
         win = 1;
+
     }
 }
 int winscreen(){
@@ -150,6 +152,11 @@ int main() {
 
     while (win == 0){
         system("cls");
+        printf(" ____        _        _ _ _        _   _                  _\n"
+               "| __ )  __ _| |_ __ _(_) | | ___  | \\ | | __ ___   ____ _| |\n"
+               "|  _ \\ / _` | __/ _` | | | |/ _ \\ |  \\| |/ _` \\ \\ / / _` | |\n"
+               "| |_) | (_| | || (_| | | | |  __/ | |\\  | (_| |\\ V / (_| | |\n"
+               "|____/ \\__,_|\\__\\__,_|_|_|_|\\___| |_| \\_|\\__,_| \\_/ \\__,_|_|\n\n");
         tableau();
 
         checkcouler();
