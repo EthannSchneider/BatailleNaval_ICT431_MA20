@@ -6,6 +6,7 @@ Version : beta 0.1
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <windows.h>
 
 int x = 0;
 int y = 0;
@@ -111,7 +112,7 @@ int checkcouler(){
     }
 }
 int winscreen(){
-    printf("\e[1;1H\e[2J");
+    system("cls");
     printf(""
            "\n"
            "\n"
@@ -138,14 +139,17 @@ int winscreen(){
            "\n"
            "\n");
     scanf("%d");
-    printf("\e[1;1H\e[2J");
+    system("cls");
 }
 
 
 int main() {
     char ychar;
+
+    SetConsoleOutputCP(65001);
+
     while (win == 0){
-        printf("\e[1;1H\e[2J");
+        system("cls");
         tableau();
 
         checkcouler();
