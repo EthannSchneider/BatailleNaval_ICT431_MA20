@@ -47,7 +47,9 @@ int tab[10][10] = {
         {0,0,0,0,0,0,0,0,0,0}
 };
 
-
+/* @function : to show the table
+ * @return : 1
+*/
 int tableau(){
     printf("     1   2   3   4   5   6   7   8   9  10\n");
     printf("   ╔═══╦═══╦═══╦═══╦═══╦═══╦═══╦═══╦═══╦═══╗\n %c ║",97);
@@ -63,8 +65,12 @@ int tableau(){
         printf("\n");
     }
     printf("   ╚═══╩═══╩═══╩═══╩═══╩═══╩═══╩═══╩═══╩═══╝\n");
+    return 1;
 }
 
+/* @function : check if boat is sink
+ * @return : 1
+*/
 int checkcouler(){
     int porteavion = 0, croiseur = 0, contretorpilleur = 0, sousmarin = 0, torpilleur = 0,porteaviont = 0, croiseurt = 0, contretorpilleurt = 0, sousmarint = 0, torpilleurt = 0;
     for (int i = 0; i < 10; i++) {
@@ -112,7 +118,12 @@ int checkcouler(){
         win = 1;
 
     }
+    return 1;
 }
+
+/* @function : show the win screen when player win
+ * @return : 1
+*/
 int winscreen(){
     system("cls");
     printf(""
@@ -130,7 +141,17 @@ int winscreen(){
            "  | | (_) | |_| |   \\ V  V / | | | | |\n"
            "  |_|\\___/ \\__,_|    \\_/\\_/  |_|_| |_|\n"
            "                                      "
-           "\n"
+           "\n    \\\n"
+           "     \\\n"
+           "                                   .::!!!!!!!:.\n"
+           "  .!!!!!:.                        .:!!!!!!!!!!!!\n"
+           "  ~~~~!!!!!!.                 .:!!!!!!!!!UWWW$$$\n"
+           "      :$$NWX!!:           .:!!!!!!XUWW$$$$$$$$$P\n"
+           "      $$$$$##WX!:      .<!!!!UW$$$$\"  $$$$$$$$#\n"
+           "      $$$$$  $$$UX   :!!UW$$$$$$$$$   4$$$$$*\n"
+           "      ^$$$B  $$$$\\     $$$$$$$$$$$$   d$$R\"\n"
+           "        \"*$bd$$$$      '*$$$$$$$$$$$o+#\"\n"
+           "             \"\"\"\"          \"\"\"\"\"\"\""
            "\n"
            "\n"
            "\n"
