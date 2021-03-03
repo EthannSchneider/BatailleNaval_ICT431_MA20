@@ -1,1 +1,3 @@
-/usr/bin/cc -g   CMakeFiles/BatailleNaval_ICT431_MA20.dir/main.c.o  -o BatailleNaval_ICT431_MA20 
+"C:\Program Files\JetBrains\CLion 2020.2\bin\cmake\win\bin\cmake.exe" -E rm -f CMakeFiles\BatailleNaval_ICT431_MA20.dir/objects.a
+C:\MinGW\bin\ar.exe cr CMakeFiles\BatailleNaval_ICT431_MA20.dir/objects.a @CMakeFiles\BatailleNaval_ICT431_MA20.dir\objects1.rsp
+C:\MinGW\bin\gcc.exe -g   -Wl,--whole-archive CMakeFiles\BatailleNaval_ICT431_MA20.dir/objects.a -Wl,--no-whole-archive  -o BatailleNaval_ICT431_MA20.exe -Wl,--out-implib,libBatailleNaval_ICT431_MA20.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\BatailleNaval_ICT431_MA20.dir\linklibs.rsp

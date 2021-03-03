@@ -1,7 +1,9 @@
 file(REMOVE_RECURSE
-  "BatailleNaval_ICT431_MA20"
+  "BatailleNaval_ICT431_MA20.exe"
+  "BatailleNaval_ICT431_MA20.exe.manifest"
   "BatailleNaval_ICT431_MA20.pdb"
-  "CMakeFiles/BatailleNaval_ICT431_MA20.dir/main.c.o"
+  "CMakeFiles/BatailleNaval_ICT431_MA20.dir/main.c.obj"
+  "libBatailleNaval_ICT431_MA20.dll.a"
 )
 
 # Per-language clean rules from dependency scanning.
