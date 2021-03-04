@@ -47,24 +47,36 @@ int tab[10][10] = {
         {0,0,0,0,0,0,0,0,0,0}
 };
 
+/* @function : transform number to char on the graphic table
+ * @return : 0
+*/
+int numtochar(int i){
+    switch (i) {
+        case 0: printf("   ║"); break; //nothing
+        case 2: printf(" O ║"); break; //not touch
+        default: printf(" X ║"); break; //touch
+    }
+    return 0;
+}
+
 /* @function : to show the table
  * @return : 1
 */
 int tableau(){
     printf("     1   2   3   4   5   6   7   8   9  10\n");
-    printf("   ╔═══╦═══╦═══╦═══╦═══╦═══╦═══╦═══╦═══╦═══╗\n %c ║",97);
-    for (int i = 0; i < 10; i++) {
-        printf("%2d ║",tab[0][i]);
+    printf("   ╔═══╦═══╦═══╦═══╦═══╦═══╦═══╦═══╦═══╦═══╗\n %c ║",97); //first line
+    for (int i = 0; i < 10; i++) { //seconde line
+        numtochar(tab[0][i]);
     }
     printf("\n");
-    for (int y = 1; y < 10; y++) {
+    for (int y = 1; y < 10; y++) { // center line
         printf("   ╠═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╣\n %c ║",y+97);
         for (int i = 0; i < 10; i++) {
-            printf("%2d ║",tab[y][i]);
+            numtochar(tab[y][i]);
         }
         printf("\n");
     }
-    printf("   ╚═══╩═══╩═══╩═══╩═══╩═══╩═══╩═══╩═══╩═══╝\n");
+    printf("   ╚═══╩═══╩═══╩═══╩═══╩═══╩═══╩═══╩═══╩═══╝\n"); //last line
     return 1;
 }
 
@@ -73,9 +85,10 @@ int tableau(){
 */
 int checkcouler(){
     int porteavion = 0, croiseur = 0, contretorpilleur = 0, sousmarin = 0, torpilleur = 0,porteaviont = 0, croiseurt = 0, contretorpilleurt = 0, sousmarint = 0, torpilleurt = 0;
-    for (int i = 0; i < 10; i++) {
-        for (int j = 0; j < 10; j++) {
-            switch (bateau[i][j]) {
+
+    for (int i = 0; i < 10; i++) {//colone
+        for (int j = 0; j < 10; j++) { //line
+            switch (bateau[i][j]) { //calculate case of the boat on the 2 table
                 case 1:
                     porteavion++;
                     if(tab[i][j] == 2){porteaviont++;}
@@ -99,24 +112,24 @@ int checkcouler(){
             }
         }
     }
-    if (porteavion == porteaviont){
+    if (porteavion == porteaviont){ //check if is equals to touch boat then boat is sink
         printf("\nle porte-avion adverse a couler\n");
     }
-    if (croiseur == croiseurt){
+    if (croiseur == croiseurt){//check if is equals to touch boat then boat is sink
         printf("\nle croiseur adverse a couler\n");
     }
-    if (contretorpilleur == contretorpilleurt){
+    if (contretorpilleur == contretorpilleurt){//check if is equals to touch boat then boat is sink
         printf("\nle contre-torpilleur adverse a couler\n");
     }
-    if (sousmarin == sousmarint){
+    if (sousmarin == sousmarint){//check if is equals to touch boat  then boat is sink
         printf("\nle sous-marin adverse a couler\n");
     }
-    if (torpilleur == torpilleurt){
+    if (torpilleur == torpilleurt){//check if is equals to touch boat then boat is sink
         printf("\nle torpilleur adverse a couler\n");
     }
+    //check if all boat is equals to touch boat then win
     if (porteavion == porteaviont && croiseur == croiseurt && contretorpilleur == contretorpilleurt && sousmarin == sousmarint && torpilleur == torpilleurt){
         win = 1;
-
     }
     return 1;
 }
@@ -165,6 +178,9 @@ int winscreen(){
     system("cls");
 }
 
+/* @function : Bataille navale Title
+ * @return : 0
+*/
 int textebataillenavale(){
     printf(" ____        _        _ _ _        _   _                  _\n"
            "| __ )  __ _| |_ __ _(_) | | ___  | \\ | | __ ___   ____ _| | ___\n"
@@ -181,32 +197,32 @@ int main() {
 
     SetConsoleOutputCP(65001);
 
-    while (mode != 3) {
+    while (mode != 3) { //if player do not select quit
         textebataillenavale();
         printf("\n\nQue voulez-vous faire ? \n  1. Jouer\n  2. aide de jeu\n  3. quitter\n ");
         scanf("%d",&mode);
 
-        if (mode == 1){
+        if (mode == 1){ //if player want to play a game
             while (win == 0){
                 system("cls");
                 textebataillenavale();
                 tableau();
 
                 checkcouler();
-                if (win != 0){break;}
+                if (win != 0){continue;}
 
                 do {
                     printf("\nCoords 1 : ");
                     scanf("%d", &x);
-                    if (x > 10 || x == 0){printf("le nombre doit être inférieur à 10 et supérieur a 0 !");}
-                }while (x > 10 || x == 0);
+                    if (x > 10 || x == 0){printf("le nombre doit être inférieur à 10 et supérieur a 0 !");} //check if number is behind 1 - 10 then error message
+                }while (x > 10 || x == 0); //check if number is behind 1 - 10
 
                 do {
                     printf("\nCoords 2 : ");
                     scanf("%s", &ychar);
                     y = (int) (ychar) - 96;
-                    if (ychar <= 96 || ychar >= 107){printf("La lettre doit être entre a et k !");}
-                } while (ychar <= 96 || ychar >= 107);
+                    if (ychar <= 96 || ychar >= 107){printf("La lettre doit être entre a et k !");} //check if char is behind A - J then error message
+                } while (ychar <= 96 || ychar >= 107); //check if char is behind A - J
 
                 switch (bateau[y-1][x-1]) {
                     case 0:
@@ -232,7 +248,7 @@ int main() {
 
             }
             winscreen();
-        }else if(mode == 2){
+        }else if(mode == 2){ //if player want to know how to play
             system("cls");
             textebataillenavale();
             printf("\n\n\n  il y a 5 bateau : \n"
