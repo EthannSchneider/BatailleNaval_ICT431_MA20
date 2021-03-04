@@ -181,17 +181,21 @@ void textebataillenavale(){
            "|____/ \\__,_|\\__\\__,_|_|_|_|\\___| |_| \\_|\\__,_| \\_/ \\__,_|_|\\___|\n");
 }
 
-
 int main() {
     char ychar;
     int mode = 0;
+    char o[2];
 
     SetConsoleOutputCP(65001);
 
     while (mode != 3) { //if player do not select quit
-        textebataillenavale();
-        printf("\n\nWhat do you want to do ? \n  1. Play\n  2. game help\n  3. quit\n ");
-        scanf("%d",&mode);
+        do {
+            system("cls");//clear
+            textebataillenavale();
+            printf("\n\nWhat do you want to do ? \n  1. Play\n  2. game help\n  3. quit\n ");
+            scanf("%s",&o);
+            mode = strtol( o, NULL, 10 );
+        }while (mode > 10 || mode == 0); //check if number is between 1 - 3
 
         if (mode == 1){ //if player want to play a game
             while (win == 0){
@@ -204,7 +208,8 @@ int main() {
 
                 do {
                     printf("\nCoords 1 : ");
-                    scanf("%d", &x);
+                    scanf("%s", &o);
+                    x = strtol( o, NULL, 10 );
                     if (x > 10 || x == 0){printf("the number need to be between 1 - 10 !");} //check if number is between 1 - 10 then error message
                 }while (x > 10 || x == 0); //check if number is between 1 - 10
 
@@ -222,8 +227,6 @@ int main() {
                     default:
                         tab[y-1][x-1] = 2;
                         break;
-
-
                 }
 
             }
