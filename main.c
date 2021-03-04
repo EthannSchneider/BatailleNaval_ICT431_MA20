@@ -138,7 +138,7 @@ int checkcouler(){
  * @return : 1
 */
 int winscreen(){
-    system("cls");
+    system("cls");//clear
     printf(""
            "\n"
            "\n"
@@ -174,8 +174,8 @@ int winscreen(){
            "\n"
            "\n"
            "\n");
-    system("pause");
-    system("cls");
+    system("pause");//wait
+    system("cls");//clear
 }
 
 /* @function : Bataille navale Title
@@ -204,7 +204,7 @@ int main() {
 
         if (mode == 1){ //if player want to play a game
             while (win == 0){
-                system("cls");
+                system("cls");//clear
                 textebataillenavale();
                 tableau();
 
@@ -224,32 +224,21 @@ int main() {
                     if (ychar <= 96 || ychar >= 107){printf("La lettre doit être entre a et k !");} //check if char is behind A - J then error message
                 } while (ychar <= 96 || ychar >= 107); //check if char is behind A - J
 
-                switch (bateau[y-1][x-1]) {
+                switch (bateau[y-1][x-1]) { //switch to write touch or not touch
                     case 0:
                         tab[y-1][x-1] = 1;
                         break;
-                    case 1:
+                    default:
                         tab[y-1][x-1] = 2;
                         break;
-                    case 2:
-                        tab[y-1][x-1] = 2;
-                        break;
-                    case 3:
-                        tab[y-1][x-1] = 2;
-                        break;
-                    case 4:
-                        tab[y-1][x-1] = 2;
-                        break;
-                    case 5:
-                        tab[y-1][x-1] = 2;
-                        break;
+
 
                 }
 
             }
             winscreen();
         }else if(mode == 2){ //if player want to know how to play
-            system("cls");
+            system("cls"); //clear
             textebataillenavale();
             printf("\n\n\n  il y a 5 bateau : \n"
                    "                    1 porte-avion (5 cases)\n"
@@ -260,8 +249,8 @@ int main() {
                    "  chaque tours vous choisisez une coordonnée entre 1 et 10 et une coordonnée entre A et J\n"
                    "  ensuite sur le tableau sera marque si touche ou rien\n"
                    "  des que toutes les cases d'un bateau sont touchée le bateau coule\n");
-            system("pause");
-            system("cls");
+            system("pause");//wait
+            system("cls");//clear
         }
     }
     return 0;
