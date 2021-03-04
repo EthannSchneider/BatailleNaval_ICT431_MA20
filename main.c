@@ -242,7 +242,9 @@ int main() {
                    "                    1 torpedo boat (2 cases)\n"
                    "  each turn you choose a coordinate between 1 and 10 and a coordinate between A and J\n"
                    "  then on the board will be marked if hit or nothing\n"
-                   "  as soon as all the squares of a boat are touched the boat sinks\n");
+                   "  as soon as all the squares of a boat are touched the boat sinks\n"
+                   "  in the table X is not touch and O is hit\n"
+                   "  Coords 1 is number and Coords 2 is a letter\n");
             system("pause");//wait
             system("cls");//clear
         }
