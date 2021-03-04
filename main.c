@@ -199,7 +199,7 @@ int main() {
 
     while (mode != 3) { //if player do not select quit
         textebataillenavale();
-        printf("\n\nQue voulez-vous faire ? \n  1. Jouer\n  2. aide de jeu\n  3. quitter\n ");
+        printf("\n\nWhat do you want to do ? \n  1. Play\n  2. game help\n  3. quit\n ");
         scanf("%d",&mode);
 
         if (mode == 1){ //if player want to play a game
@@ -214,15 +214,15 @@ int main() {
                 do {
                     printf("\nCoords 1 : ");
                     scanf("%d", &x);
-                    if (x > 10 || x == 0){printf("le nombre doit être inférieur à 10 et supérieur a 0 !");} //check if number is behind 1 - 10 then error message
-                }while (x > 10 || x == 0); //check if number is behind 1 - 10
+                    if (x > 10 || x == 0){printf("the number need to be between 1 - 10 !");} //check if number is between 1 - 10 then error message
+                }while (x > 10 || x == 0); //check if number is between 1 - 10
 
                 do {
                     printf("\nCoords 2 : ");
                     scanf("%s", &ychar);
                     y = (int) (ychar) - 96;
-                    if (ychar <= 96 || ychar >= 107){printf("La lettre doit être entre a et k !");} //check if char is behind A - J then error message
-                } while (ychar <= 96 || ychar >= 107); //check if char is behind A - J
+                    if (ychar <= 96 || ychar >= 107){printf("The character need to be between A and K !");} //check if char is between A - J then error message
+                } while (ychar <= 96 || ychar >= 107); //check if char is between A - J
 
                 switch (bateau[y-1][x-1]) { //switch to write touch or not touch
                     case 0:
@@ -240,15 +240,15 @@ int main() {
         }else if(mode == 2){ //if player want to know how to play
             system("cls"); //clear
             textebataillenavale();
-            printf("\n\n\n  il y a 5 bateau : \n"
-                   "                    1 porte-avion (5 cases)\n"
-                   "                    1 croiseur (4 cases)\n"
-                   "                    1 contre-torpilleur (3 cases)\n"
-                   "                    1 sous-marin (3 cases)\n"
-                   "                    1 torpilleur (2 cases)\n"
-                   "  chaque tours vous choisisez une coordonnée entre 1 et 10 et une coordonnée entre A et J\n"
-                   "  ensuite sur le tableau sera marque si touche ou rien\n"
-                   "  des que toutes les cases d'un bateau sont touchée le bateau coule\n");
+            printf("\n\n\n  there is 5 boat : \n"
+                   "                    1 aircraft carrier (5 cases)\n"
+                   "                    1 cruiser (4 cases)\n"
+                   "                    1 destroyer (3 cases)\n"
+                   "                    1 submarine (3 cases)\n"
+                   "                    1 torpedo boat (2 cases)\n"
+                   "  each turn you choose a coordinate between 1 and 10 and a coordinate between A and J\n"
+                   "  then on the board will be marked if hit or nothing\n"
+                   "  as soon as all the squares of a boat are touched the boat sinks\n");
             system("pause");//wait
             system("cls");//clear
         }
