@@ -113,19 +113,19 @@ int checkcouler(){
         }
     }
     if (porteavion == porteaviont){ //check if is equals to touch boat then boat is sink
-        printf("\nle porte-avion adverse a couler\n");
+        printf("\nthe enemy aircraft carrier has sunk\n");
     }
     if (croiseur == croiseurt){//check if is equals to touch boat then boat is sink
-        printf("\nle croiseur adverse a couler\n");
+        printf("\nthe opposing cruiser has sunk\n");
     }
     if (contretorpilleur == contretorpilleurt){//check if is equals to touch boat then boat is sink
-        printf("\nle contre-torpilleur adverse a couler\n");
+        printf("\nthe opposing destroyer to sink\n");
     }
     if (sousmarin == sousmarint){//check if is equals to touch boat  then boat is sink
-        printf("\nle sous-marin adverse a couler\n");
+        printf("\nthe enemy submarine has sunk\n");
     }
     if (torpilleur == torpilleurt){//check if is equals to touch boat then boat is sink
-        printf("\nle torpilleur adverse a couler\n");
+        printf("\nthe enemy torpedo boat to sink\n");
     }
     //check if all boat is equals to touch boat then win
     if (porteavion == porteaviont && croiseur == croiseurt && contretorpilleur == contretorpilleurt && sousmarin == sousmarint && torpilleur == torpilleurt){
