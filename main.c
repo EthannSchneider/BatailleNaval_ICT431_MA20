@@ -161,64 +161,92 @@ int winscreen(){
            "\n"
            "\n"
            "\n");
-    scanf("%d");
+    system("pause");
     system("cls");
+}
+
+int textebataillenavale(){
+    printf(" ____        _        _ _ _        _   _                  _\n"
+           "| __ )  __ _| |_ __ _(_) | | ___  | \\ | | __ ___   ____ _| | ___\n"
+           "|  _ \\ / _` | __/ _` | | | |/ _ \\ |  \\| |/ _` \\ \\ / / _` | |/ _ \\\n"
+           "| |_) | (_| | || (_| | | | |  __/ | |\\  | (_| |\\ V / (_| | |  __/\n"
+           "|____/ \\__,_|\\__\\__,_|_|_|_|\\___| |_| \\_|\\__,_| \\_/ \\__,_|_|\\___|\n");
+    return 0;
 }
 
 
 int main() {
     char ychar;
+    int mode = 0;
 
     SetConsoleOutputCP(65001);
 
-    while (win == 0){
-        system("cls");
-        printf(" ____        _        _ _ _        _   _                  _\n"
-               "| __ )  __ _| |_ __ _(_) | | ___  | \\ | | __ ___   ____ _| |\n"
-               "|  _ \\ / _` | __/ _` | | | |/ _ \\ |  \\| |/ _` \\ \\ / / _` | |\n"
-               "| |_) | (_| | || (_| | | | |  __/ | |\\  | (_| |\\ V / (_| | |\n"
-               "|____/ \\__,_|\\__\\__,_|_|_|_|\\___| |_| \\_|\\__,_| \\_/ \\__,_|_|\n\n");
-        tableau();
+    while (mode != 3) {
+        textebataillenavale();
+        printf("\n\nQue voulez-vous faire ? \n  1. Jouer\n  2. aide de jeu\n  3. quitter\n ");
+        scanf("%d",&mode);
 
-        checkcouler();
-        if (win != 0){break;}
+        if (mode == 1){
+            while (win == 0){
+                system("cls");
+                textebataillenavale();
+                tableau();
 
-        do {
-            printf("\nCoords 1 : ");
-            scanf("%d", &x);
-            if (x > 10 || x == 0){printf("le nombre doit être inférieur à 10 et supérieur a 0 !");}
-        }while (x > 10 || x == 0);
+                checkcouler();
+                if (win != 0){break;}
 
-        do {
-            printf("\nCoords 2 : ");
-            scanf("%s", &ychar);
-            y = (int) (ychar) - 96;
-            if (ychar <= 96 || ychar >= 107){printf("La lettre doit être entre a et k !");}
-        } while (ychar <= 96 || ychar >= 107);
+                do {
+                    printf("\nCoords 1 : ");
+                    scanf("%d", &x);
+                    if (x > 10 || x == 0){printf("le nombre doit être inférieur à 10 et supérieur a 0 !");}
+                }while (x > 10 || x == 0);
 
-        switch (bateau[y-1][x-1]) {
-            case 0:
-                tab[y-1][x-1] = 1;
-                break;
-            case 1:
-                tab[y-1][x-1] = 2;
-                break;
-            case 2:
-                tab[y-1][x-1] = 2;
-                break;
-            case 3:
-                tab[y-1][x-1] = 2;
-                break;
-            case 4:
-                tab[y-1][x-1] = 2;
-                break;
-            case 5:
-                tab[y-1][x-1] = 2;
-                break;
+                do {
+                    printf("\nCoords 2 : ");
+                    scanf("%s", &ychar);
+                    y = (int) (ychar) - 96;
+                    if (ychar <= 96 || ychar >= 107){printf("La lettre doit être entre a et k !");}
+                } while (ychar <= 96 || ychar >= 107);
 
+                switch (bateau[y-1][x-1]) {
+                    case 0:
+                        tab[y-1][x-1] = 1;
+                        break;
+                    case 1:
+                        tab[y-1][x-1] = 2;
+                        break;
+                    case 2:
+                        tab[y-1][x-1] = 2;
+                        break;
+                    case 3:
+                        tab[y-1][x-1] = 2;
+                        break;
+                    case 4:
+                        tab[y-1][x-1] = 2;
+                        break;
+                    case 5:
+                        tab[y-1][x-1] = 2;
+                        break;
+
+                }
+
+            }
+            winscreen();
+        }else if(mode == 2){
+            system("cls");
+            textebataillenavale();
+            printf("\n\n\n  il y a 5 bateau : \n"
+                   "                    1 porte-avion (5 cases)\n"
+                   "                    1 croiseur (4 cases)\n"
+                   "                    1 contre-torpilleur (3 cases)\n"
+                   "                    1 sous-marin (3 cases)\n"
+                   "                    1 torpilleur (2 cases)\n"
+                   "  chaque tours vous choisisez une coordonnée entre 1 et 10 et une coordonnée entre A et J\n"
+                   "  ensuite sur le tableau sera marque si touche ou rien\n"
+                   "  des que toutes les cases d'un bateau sont touchée le bateau coule\n");
+            system("pause");
+            system("cls");
         }
-
     }
-    winscreen();
     return 0;
 }
