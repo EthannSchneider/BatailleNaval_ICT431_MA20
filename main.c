@@ -48,21 +48,18 @@ int tab[10][10] = {
 };
 
 /* @function : transform number to char on the graphic table
- * @return : 0
 */
-int numtochar(int i){
+void numtochar(int i){
     switch (i) {
         case 0: printf("   ║"); break; //nothing
         case 2: printf(" O ║"); break; //not touch
         default: printf(" X ║"); break; //touch
     }
-    return 0;
 }
 
 /* @function : to show the table
- * @return : 1
 */
-int tableau(){
+void tableau(){
     printf("     1   2   3   4   5   6   7   8   9  10\n");
     printf("   ╔═══╦═══╦═══╦═══╦═══╦═══╦═══╦═══╦═══╦═══╗\n %c ║",97); //first line
     for (int i = 0; i < 10; i++) { //seconde line
@@ -77,13 +74,11 @@ int tableau(){
         printf("\n");
     }
     printf("   ╚═══╩═══╩═══╩═══╩═══╩═══╩═══╩═══╩═══╩═══╝\n"); //last line
-    return 1;
 }
 
 /* @function : check if boat is sink
- * @return : 1
 */
-int checkcouler(){
+void checkcouler(){
     int porteavion = 0, croiseur = 0, contretorpilleur = 0, sousmarin = 0, torpilleur = 0,porteaviont = 0, croiseurt = 0, contretorpilleurt = 0, sousmarint = 0, torpilleurt = 0;
 
     for (int i = 0; i < 10; i++) {//colone
@@ -131,13 +126,11 @@ int checkcouler(){
     if (porteavion == porteaviont && croiseur == croiseurt && contretorpilleur == contretorpilleurt && sousmarin == sousmarint && torpilleur == torpilleurt){
         win = 1;
     }
-    return 1;
 }
 
 /* @function : show the win screen when player win
- * @return : 1
 */
-int winscreen(){
+void winscreen(){
     system("cls");//clear
     printf(""
            "\n"
@@ -179,15 +172,13 @@ int winscreen(){
 }
 
 /* @function : Bataille navale Title
- * @return : 0
 */
-int textebataillenavale(){
+void textebataillenavale(){
     printf(" ____        _        _ _ _        _   _                  _\n"
            "| __ )  __ _| |_ __ _(_) | | ___  | \\ | | __ ___   ____ _| | ___\n"
            "|  _ \\ / _` | __/ _` | | | |/ _ \\ |  \\| |/ _` \\ \\ / / _` | |/ _ \\\n"
            "| |_) | (_| | || (_| | | | |  __/ | |\\  | (_| |\\ V / (_| | |  __/\n"
            "|____/ \\__,_|\\__\\__,_|_|_|_|\\___| |_| \\_|\\__,_| \\_/ \\__,_|_|\\___|\n");
-    return 0;
 }
 
 
