@@ -217,7 +217,8 @@ int main() {
                     printf("\nCoords 2 : ");
                     scanf("%s", &ychar);
                     y = (int) (ychar) - 96;
-                    if (ychar <= 96 || ychar >= 107){printf("The character need to be between A and J !");} //check if char is between A - J then error message
+                    if (ychar >= 65 && ychar >= 74 ) ychar+=32;
+                    if (ychar <= 96 || ychar >= 107) printf("The character need to be between A and J !"); //check if char is between A - J then error message
                 } while (ychar <= 96 || ychar >= 107); //check if char is between A - J
 
                 switch (bateau[y-1][x-1]) { //switch to write touch or not touch
