@@ -11,6 +11,12 @@ Version : beta 0.1
 int x = 0;
 int y = 0;
 int win = 0;
+int nbessai = 0;
+int nberreur = 0;
+int nbjuste = 0;
+char ychar;
+int mode = 0;
+char o[2];
 
 //1 : 1 porte-avion (5 cases)
 //2 : 1 croiseur (4 cases)
@@ -158,15 +164,16 @@ void winscreen(){
            "      ^$$$B  $$$$\\     $$$$$$$$$$$$   d$$R\"\n"
            "        \"*$bd$$$$      '*$$$$$$$$$$$o+#\"\n"
            "             \"\"\"\"          \"\"\"\"\"\"\""
+           "\nNumber of strike : %d"
+           "\nNumber of error : %d"
+           "\nNumber of hit : %d"
            "\n"
            "\n"
            "\n"
            "\n"
            "\n"
            "\n"
-           "\n"
-           "\n"
-           "\n");
+           "\n", nbessai, nberreur,nbjuste);
     system("pause");//wait
     system("cls");//clear
 }
@@ -182,10 +189,6 @@ void textebataillenavale(){
 }
 
 int main() {
-    char ychar;
-    int mode = 0;
-    char o[2];
-
     SetConsoleOutputCP(65001);
 
     while (mode != 3) { //if player do not select quit
@@ -205,33 +208,38 @@ int main() {
 
                 checkcouler();
                 if (win != 0){continue;}
-
+                nbessai+=1;
                 do {
-                    printf("\nCoords 1 : ");
+                    printf("\nColumn : ");
                     scanf("%s", &o);
                     x = strtol( o, NULL, 10 );
                     if (x > 10 || x == 0){printf("the number need to be between 1 - 10 !");} //check if number is between 1 - 10 then error message
                 }while (x > 10 || x == 0); //check if number is between 1 - 10
 
                 do {
-                    printf("\nCoords 2 : ");
+                    printf("\nLine : ");
                     scanf("%s", &ychar);
+                    if (ychar >= 65 && ychar <= 74 ) ychar+=32;
                     y = (int) (ychar) - 96;
-                    if (ychar >= 65 && ychar >= 74 ) ychar+=32;
                     if (ychar <= 96 || ychar >= 107) printf("The character need to be between A and J !"); //check if char is between A - J then error message
                 } while (ychar <= 96 || ychar >= 107); //check if char is between A - J
 
                 switch (bateau[y-1][x-1]) { //switch to write touch or not touch
                     case 0:
                         tab[y-1][x-1] = 1;
+                        nberreur+=1;
                         break;
                     default:
                         tab[y-1][x-1] = 2;
+                        nbjuste+=1;
                         break;
                 }
 
             }
             winscreen();
+            nbessai = 0;
+            nbjuste = 0;
+            nberreur = 0;
         }else if(mode == 2){ //if player want to know how to play
             system("cls"); //clear
             textebataillenavale();
