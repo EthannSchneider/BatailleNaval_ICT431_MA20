@@ -188,6 +188,70 @@ void textebataillenavale(){
            "|____/ \\__,_|\\__\\__,_|_|_|_|\\___| |_| \\_|\\__,_| \\_/ \\__,_|_|\\___|\n");
 }
 
+/* @function : Show game help
+*/
+int aidedejeu(){
+    system("cls"); //clear
+    textebataillenavale();
+    printf("\n\n\n  there is 5 boat : \n"
+           "                    1 aircraft carrier (5 cases)\n"
+           "                    1 cruiser (4 cases)\n"
+           "                    1 destroyer (3 cases)\n"
+           "                    1 submarine (3 cases)\n"
+           "                    1 torpedo boat (2 cases)\n"
+           "  each turn you choose a coordinate between 1 and 10 and a coordinate between A and J\n"
+           "  then on the board will be marked if hit or nothing\n"
+           "  as soon as all the squares of a boat are touched the boat sinks\n"
+           "  in the table X is not touch and O is hit\n"
+           "  Coords 1 is number and Coords 2 is a letter\n");
+    system("pause");//wait
+    system("cls");//clear
+}
+
+/* @function : It's the games
+*/
+int game(){
+    while (win == 0){ //wait player win
+        system("cls");//clear
+        textebataillenavale();
+        tableau();
+
+        checkcouler();
+        if (win != 0) continue;
+        nbessai+=1;
+        do {
+            printf("\nColumn : ");
+            scanf("%s", &o);
+            x = strtol( o, NULL, 10 );
+            if (x > 10 || x == 0) printf("the number need to be between 1 - 10 !"); //check if number is between 1 - 10 then error message
+        }while (x > 10 || x == 0); //check if number is between 1 - 10
+
+        do {
+            printf("\nLine : ");
+            scanf("%s", &ychar);
+            if (ychar >= 65 && ychar <= 74 ) ychar+=32;
+            y = (int) (ychar) - 96;
+            if (ychar <= 96 || ychar >= 107) printf("The character need to be between A and J !"); //check if char is between A - J then error message
+        } while (ychar <= 96 || ychar >= 107); //check if char is between A - J
+
+        switch (bateau[y-1][x-1]) { //switch to write touch or not touch
+            case 0:
+                tab[y-1][x-1] = 1;
+                nberreur+=1;
+                break;
+            default:
+                tab[y-1][x-1] = 2;
+                nbjuste+=1;
+                break;
+        }
+
+    }
+    winscreen();
+    nbessai = 0;
+    nbjuste = 0;
+    nberreur = 0;
+}
+
 int main() {
     SetConsoleOutputCP(65001);
 
@@ -201,61 +265,9 @@ int main() {
         }while (mode > 10 || mode == 0); //check if number is between 1 - 3
 
         if (mode == 1){ //if player want to play a game
-            while (win == 0){
-                system("cls");//clear
-                textebataillenavale();
-                tableau();
-
-                checkcouler();
-                if (win != 0){continue;}
-                nbessai+=1;
-                do {
-                    printf("\nColumn : ");
-                    scanf("%s", &o);
-                    x = strtol( o, NULL, 10 );
-                    if (x > 10 || x == 0){printf("the number need to be between 1 - 10 !");} //check if number is between 1 - 10 then error message
-                }while (x > 10 || x == 0); //check if number is between 1 - 10
-
-                do {
-                    printf("\nLine : ");
-                    scanf("%s", &ychar);
-                    if (ychar >= 65 && ychar <= 74 ) ychar+=32;
-                    y = (int) (ychar) - 96;
-                    if (ychar <= 96 || ychar >= 107) printf("The character need to be between A and J !"); //check if char is between A - J then error message
-                } while (ychar <= 96 || ychar >= 107); //check if char is between A - J
-
-                switch (bateau[y-1][x-1]) { //switch to write touch or not touch
-                    case 0:
-                        tab[y-1][x-1] = 1;
-                        nberreur+=1;
-                        break;
-                    default:
-                        tab[y-1][x-1] = 2;
-                        nbjuste+=1;
-                        break;
-                }
-
-            }
-            winscreen();
-            nbessai = 0;
-            nbjuste = 0;
-            nberreur = 0;
+            game();
         }else if(mode == 2){ //if player want to know how to play
-            system("cls"); //clear
-            textebataillenavale();
-            printf("\n\n\n  there is 5 boat : \n"
-                   "                    1 aircraft carrier (5 cases)\n"
-                   "                    1 cruiser (4 cases)\n"
-                   "                    1 destroyer (3 cases)\n"
-                   "                    1 submarine (3 cases)\n"
-                   "                    1 torpedo boat (2 cases)\n"
-                   "  each turn you choose a coordinate between 1 and 10 and a coordinate between A and J\n"
-                   "  then on the board will be marked if hit or nothing\n"
-                   "  as soon as all the squares of a boat are touched the boat sinks\n"
-                   "  in the table X is not touch and O is hit\n"
-                   "  Coords 1 is number and Coords 2 is a letter\n");
-            system("pause");//wait
-            system("cls");//clear
+            aidedejeu();
         }
     }
     return 0;
