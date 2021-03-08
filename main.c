@@ -7,6 +7,7 @@ Version : beta 0.1
 #include <stdio.h>
 #include <stdlib.h>
 #include <windows.h>
+#include <time.h>
 
 int x = 0;
 int y = 0;
@@ -17,6 +18,8 @@ int nbjuste = 0;
 char ychar;
 int mode = 0;
 char o[2];
+FILE* fichier = NULL;
+
 
 //1 : 1 porte-avion (5 cases)
 //2 : 1 croiseur (4 cases)
@@ -255,6 +258,14 @@ void game(){
 int main() {
     SetConsoleOutputCP(65001);
 
+    fichier = fopen('../log.txt', 'w');
+
+    time_t timestamp;
+    struct tm * t;
+    timestamp = time(NULL);
+
+    fprintf(fichier, " %02u %s %04u ", t->tm_mday, t->tm_mon, 1900 + t->tm_year);
+
     while (mode != 3) { //if player do not select quit
         do {
             system("cls");//clear
@@ -271,5 +282,6 @@ int main() {
             aidedejeu();
         }
     }
+    fclose(fichier);
     return 0;
 }
