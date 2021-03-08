@@ -190,7 +190,7 @@ void textebataillenavale(){
 
 /* @function : Show game help
 */
-int aidedejeu(){
+void aidedejeu(){
     system("cls"); //clear
     textebataillenavale();
     printf("\n\n\n  there is 5 boat : \n"
@@ -210,7 +210,7 @@ int aidedejeu(){
 
 /* @function : It's the games
 */
-int game(){
+void game(){
     while (win == 0){ //wait player win
         system("cls");//clear
         textebataillenavale();
@@ -247,9 +247,9 @@ int game(){
 
     }
     winscreen();
-    nbessai = 0;
-    nbjuste = 0;
-    nberreur = 0;
+    nbessai = 0;//
+    nbjuste = 0;//  <- reset counter
+    nberreur = 0;//
 }
 
 int main() {
@@ -262,6 +262,7 @@ int main() {
             printf("\n\nWhat do you want to do ? \n  1. Play\n  2. game help\n  3. quit\n ");
             scanf("%s",&o);
             mode = strtol( o, NULL, 10 );
+            if(mode > 10 || mode == 0){printf("\nThe number isn't between 1 - 3 !\n"); system("pause");}
         }while (mode > 10 || mode == 0); //check if number is between 1 - 3
 
         if (mode == 1){ //if player want to play a game
