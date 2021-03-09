@@ -8,6 +8,7 @@ Version : beta 0.1
 #include <stdlib.h>
 #include <windows.h>
 #include <time.h>
+#include <math.h>
 
 int x = 0;
 int y = 0;
@@ -18,6 +19,7 @@ int nbjuste = 0;
 char ychar;
 int mode = 0;
 char o[2];
+int hours, minutes, seconds, day, month, year;
 FILE* fichier = NULL;
 
 
@@ -254,17 +256,31 @@ void game(){
     nbjuste = 0;//  <- reset counter
     nberreur = 0;//
 }
+int BatNavlog(char BatNavlog[30]){
+    fichier = fopen("..\\log.txt", "w");
+
+    time_t now;
+    time(&now);
+    struct tm *local = localtime(&now);
+    hours = local->tm_hour;          // get hours since midnight (0-23)
+    minutes = local->tm_min;         // get minutes passed after the hour (0-59)
+    seconds = local->tm_sec;         // get seconds passed after minute (0-59)
+
+    day = local->tm_mday;            // get day of month (1 to 31)
+    month = local->tm_mon + 1;       // get month of year (0 to 11)
+    year = local->tm_year + 1900;    // get year since 1900
+
+    if (fichier != NULL)
+    {
+        fprintf(fichier,"[%02d/%02d/%d %02d:%02d:%02d]: %s\n", day, month, year,hours, minutes, seconds, BatNavlog);
+        fclose(fichier);
+    }
+}
 
 int main() {
     SetConsoleOutputCP(65001);
 
-    fichier = fopen('../log.txt', 'w');
-
-    time_t timestamp;
-    struct tm * t;
-    timestamp = time(NULL);
-
-    fprintf(fichier, " %02u %s %04u ", t->tm_mday, t->tm_mon, 1900 + t->tm_year);
+    BatNavlog("Program Starting");
 
     while (mode != 3) { //if player do not select quit
         do {
@@ -282,6 +298,5 @@ int main() {
             aidedejeu();
         }
     }
-    fclose(fichier);
     return 0;
 }
