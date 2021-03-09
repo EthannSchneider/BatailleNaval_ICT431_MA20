@@ -20,14 +20,15 @@ char ychar;
 int mode = 0;
 char o[2];
 int hours, minutes, seconds, day, month, year;
+char username[100];
 FILE* fichier = NULL;
 
 
-//1 : 1 porte-avion (5 cases)
-//2 : 1 croiseur (4 cases)
-//3 : 1 contre-torpilleur (3 cases)
-//4 : 1 sous-marin (3 cases)
-//5 : 1 torpilleur (2 cases)
+//1 : porte-avion (5 cases)
+//2 : croiseur (4 cases)
+//3 : contre-torpilleur (3 cases)
+//4 : sous-marin (3 cases)
+//5 : torpilleur (2 cases)
 int bateau[10][10] = {
         {1,2,3,4,5,0,0,0,0,0},
         {1,2,3,4,5,0,0,0,0,0},
@@ -256,7 +257,8 @@ void game(){
     nbjuste = 0;//  <- reset counter
     nberreur = 0;//
 }
-int BatNavlog(char BatNavlog[30]){
+
+void BatNavlog(char BatNavlog[30]){
     fichier = fopen("..\\log.txt", "w");
 
     time_t now;
@@ -273,14 +275,19 @@ int BatNavlog(char BatNavlog[30]){
     if (fichier != NULL)
     {
         fprintf(fichier,"[%02d/%02d/%d %02d:%02d:%02d]: %s\n", day, month, year,hours, minutes, seconds, BatNavlog);
-        fclose(fichier);
     }
+    fclose(fichier);
 }
 
 int main() {
     SetConsoleOutputCP(65001);
 
-    BatNavlog("Program Starting");
+    BatNavlog(" rdnsgiodfng0odfjhio0dr0jkProgram Starting");
+
+    system("cls");//clear
+    textebataillenavale();
+    printf("\n\nWhat's your name ? ");
+    scanf("%s",&username);
 
     while (mode != 3) { //if player do not select quit
         do {
