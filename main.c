@@ -59,6 +59,30 @@ int tab[10][10] = {
         {0,0,0,0,0,0,0,0,0,0}
 };
 
+/*@function: write in log file
+ *@param: Text to write in log
+ * */
+void BatNavlog(char *BatNavlog){
+    fichier = fopen("log.txt", "a+");
+
+    time_t now;
+    time(&now);
+    struct tm *local = localtime(&now);
+    hours = local->tm_hour;          // get hours since midnight (0-23)
+    minutes = local->tm_min;         // get minutes passed after the hour (0-59)
+    seconds = local->tm_sec;         // get seconds passed after minute (0-59)
+
+    day = local->tm_mday;            // get day of month (1 to 31)
+    month = local->tm_mon + 1;       // get month of year (0 to 11)
+    year = local->tm_year + 1900;    // get year since 1900
+
+    if (fichier != NULL)
+    {
+        fprintf(fichier,"[%02d/%02d/%d %02d:%02d:%02d]: %s\n", day, month, year,hours, minutes, seconds, BatNavlog);
+    }
+    fclose(fichier);
+}
+
 /* @function : transform number to char on the graphic table
 */
 void numtochar(int i){
@@ -121,18 +145,23 @@ void checkcouler(){
     }
     if (porteavion == porteaviont){ //check if is equals to touch boat then boat is sink
         printf("\nyou sunk successfully an ennemy aircraft carrier\n");
+        BatNavlog("Aircraft carrier sunk");
     }
     if (croiseur == croiseurt){//check if is equals to touch boat then boat is sink
         printf("\nyou sunk successfully an ennemy cruiser\n");
+        BatNavlog("Cruiser sunk");
     }
     if (contretorpilleur == contretorpilleurt){//check if is equals to touch boat then boat is sink
         printf("\nyou sunk successfully an ennemy destroyer\n");
+        BatNavlog("Destroyer sunk");
     }
     if (sousmarin == sousmarint){//check if is equals to touch boat  then boat is sink
         printf("\nyou sunk successfully an ennemy submarine\n");
+        BatNavlog("Submarine sunk");
     }
     if (torpilleur == torpilleurt){//check if is equals to touch boat then boat is sink
         printf("\nyou sunk successfully an ennemy torpedo boat\n");
+        BatNavlog("Torpedo boat sunk");
     }
     //check if all boat is equals to touch boat then win
     if (porteavion == porteaviont && croiseur == croiseurt && contretorpilleur == contretorpilleurt && sousmarin == sousmarint && torpilleur == torpilleurt){
@@ -180,13 +209,14 @@ void winscreen(){
            "\n"
            "\n"
            "\n", nbessai, nberreur,nbjuste);
+    BatNavlog("User win");
     system("pause");//wait
     system("cls");//clear
 }
 
 /* @function : Bataille navale Title
 */
-void textebataillenavale(){
+void textbataillenavale(){
     printf(" ____        _        _ _ _        _   _                  _\n"
            "| __ )  __ _| |_ __ _(_) | | ___  | \\ | | __ ___   ____ _| | ___\n"
            "|  _ \\ / _` | __/ _` | | | |/ _ \\ |  \\| |/ _` \\ \\ / / _` | |/ _ \\\n"
@@ -196,9 +226,9 @@ void textebataillenavale(){
 
 /* @function : Show game help
 */
-void aidedejeu(){
+void gamehelp(){
     system("cls"); //clear
-    textebataillenavale();
+    textbataillenavale();
     printf("\n\n\n  there is 5 boat : \n"
            "                    1 aircraft carrier (5 cases)\n"
            "                    1 cruiser (4 cases)\n"
@@ -219,7 +249,7 @@ void aidedejeu(){
 void game(){
     while (win == 0){ //wait player win
         system("cls");//clear
-        textebataillenavale();
+        textbataillenavale();
         tableau();
 
         checkcouler();
@@ -258,41 +288,21 @@ void game(){
     nberreur = 0;//
 }
 
-void BatNavlog(char BatNavlog[30]){
-    fichier = fopen("..\\log.txt", "w");
-
-    time_t now;
-    time(&now);
-    struct tm *local = localtime(&now);
-    hours = local->tm_hour;          // get hours since midnight (0-23)
-    minutes = local->tm_min;         // get minutes passed after the hour (0-59)
-    seconds = local->tm_sec;         // get seconds passed after minute (0-59)
-
-    day = local->tm_mday;            // get day of month (1 to 31)
-    month = local->tm_mon + 1;       // get month of year (0 to 11)
-    year = local->tm_year + 1900;    // get year since 1900
-
-    if (fichier != NULL)
-    {
-        fprintf(fichier,"[%02d/%02d/%d %02d:%02d:%02d]: %s\n", day, month, year,hours, minutes, seconds, BatNavlog);
-    }
-    fclose(fichier);
-}
-
 int main() {
     SetConsoleOutputCP(65001);
 
-    BatNavlog(" rdnsgiodfng0odfjhio0dr0jkProgram Starting");
+    BatNavlog(" Program Starting");
 
     system("cls");//clear
-    textebataillenavale();
+    textbataillenavale();
     printf("\n\nWhat's your name ? ");
     scanf("%s",&username);
+    BatNavlog("New user");
 
     while (mode != 3) { //if player do not select quit
         do {
             system("cls");//clear
-            textebataillenavale();
+            textbataillenavale();
             printf("\n\nWhat do you want to do ? \n  1. Play\n  2. game help\n  3. quit\n ");
             scanf("%s",&o);
             mode = strtol( o, NULL, 10 );
@@ -300,10 +310,13 @@ int main() {
         }while (mode > 10 || mode == 0); //check if number is between 1 - 3
 
         if (mode == 1){ //if player want to play a game
+            BatNavlog("New Party");
             game();
         }else if(mode == 2){ //if player want to know how to play
-            aidedejeu();
+            gamehelp();
+            BatNavlog("User ask game help");
         }
     }
+    BatNavlog("end of Program");
     return 0;
 }
