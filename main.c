@@ -61,11 +61,6 @@ int tab[10][10] = {
         {0,0,0,0,0,0,0,0,0,0}
 };
 
-/*@function: write in log file
- *@param: Text to write in log
- * */
-
-
 /* @function : transform number to char on the graphic table
 */
 void numtochar(int i){
