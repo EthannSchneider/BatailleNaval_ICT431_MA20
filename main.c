@@ -64,7 +64,7 @@ int tab[10][10] = {
 /*@function: write in log file
  *@param: Text to write in log
  * */
-void BatNavlog(const char *BatNavlog,char *){
+void BatNavlog(const char *BatNavlog){
     fichier = fopen("log.txt", "a+");
 
     time_t now;
@@ -78,8 +78,7 @@ void BatNavlog(const char *BatNavlog,char *){
     month = local->tm_mon + 1;       // get month of year (0 to 11)
     year = local->tm_year + 1900;    // get year since 1900
 
-    if (fichier != NULL)
-    {
+    if (fichier != NULL) {
         fprintf(fichier,"[%02d/%02d/%d %02d:%02d:%02d]: %s\n", day, month, year,hours, minutes, seconds, BatNavlog);
     }
 
