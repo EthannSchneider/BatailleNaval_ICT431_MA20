@@ -79,7 +79,7 @@ void BatNavlog(const char *BatNavlog){
     year = local->tm_year + 1900;    // get year since 1900
 
     if (fichier != NULL) {
-        fprintf(fichier,"[%02d/%02d/%d %02d:%02d:%02d]: %s\n", day, month, year,hours, minutes, seconds, BatNavlog);
+        fprintf(fichier,"[%02d/%02d/%d %02d:%02d:%02d]: %s\n", day, month, year, hours, minutes, seconds, BatNavlog);
     }
 
     fclose(fichier);
