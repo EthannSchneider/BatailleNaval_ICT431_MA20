@@ -8,6 +8,8 @@ Version : beta 0.1
 #include <stdlib.h>
 #include <windows.h>
 #include <time.h>
+#include <stdarg.h>
+#include <string.h>
 #include <math.h>
 
 int x = 0;
@@ -62,26 +64,7 @@ int tab[10][10] = {
 /*@function: write in log file
  *@param: Text to write in log
  * */
-void BatNavlog(char *BatNavlog){
-    fichier = fopen("log.txt", "a+");
 
-    time_t now;
-    time(&now);
-    struct tm *local = localtime(&now);
-    hours = local->tm_hour;          // get hours since midnight (0-23)
-    minutes = local->tm_min;         // get minutes passed after the hour (0-59)
-    seconds = local->tm_sec;         // get seconds passed after minute (0-59)
-
-    day = local->tm_mday;            // get day of month (1 to 31)
-    month = local->tm_mon + 1;       // get month of year (0 to 11)
-    year = local->tm_year + 1900;    // get year since 1900
-
-    if (fichier != NULL)
-    {
-        fprintf(fichier,"[%02d/%02d/%d %02d:%02d:%02d]: %s\n", day, month, year,hours, minutes, seconds, BatNavlog);
-    }
-    fclose(fichier);
-}
 
 /* @function : transform number to char on the graphic table
 */
@@ -145,23 +128,18 @@ void checkcouler(){
     }
     if (porteavion == porteaviont){ //check if is equals to touch boat then boat is sink
         printf("\nyou sunk successfully an ennemy aircraft carrier\n");
-        BatNavlog("Aircraft carrier sunk");
     }
     if (croiseur == croiseurt){//check if is equals to touch boat then boat is sink
         printf("\nyou sunk successfully an ennemy cruiser\n");
-        BatNavlog("Cruiser sunk");
     }
     if (contretorpilleur == contretorpilleurt){//check if is equals to touch boat then boat is sink
         printf("\nyou sunk successfully an ennemy destroyer\n");
-        BatNavlog("Destroyer sunk");
     }
     if (sousmarin == sousmarint){//check if is equals to touch boat  then boat is sink
         printf("\nyou sunk successfully an ennemy submarine\n");
-        BatNavlog("Submarine sunk");
     }
     if (torpilleur == torpilleurt){//check if is equals to touch boat then boat is sink
         printf("\nyou sunk successfully an ennemy torpedo boat\n");
-        BatNavlog("Torpedo boat sunk");
     }
     //check if all boat is equals to touch boat then win
     if (porteavion == porteaviont && croiseur == croiseurt && contretorpilleur == contretorpilleurt && sousmarin == sousmarint && torpilleur == torpilleurt){
@@ -209,7 +187,6 @@ void winscreen(){
            "\n"
            "\n"
            "\n", nbessai, nberreur,nbjuste);
-    BatNavlog("User win");
     system("pause");//wait
     system("cls");//clear
 }
@@ -291,13 +268,10 @@ void game(){
 int main() {
     SetConsoleOutputCP(65001);
 
-    BatNavlog(" Program Starting");
-
     system("cls");//clear
     textbataillenavale();
     printf("\n\nWhat's your name ? ");
     scanf("%s",&username);
-    BatNavlog("New user");
 
     while (mode != 3) { //if player do not select quit
         do {
@@ -310,13 +284,10 @@ int main() {
         }while (mode > 10 || mode == 0); //check if number is between 1 - 3
 
         if (mode == 1){ //if player want to play a game
-            BatNavlog("New Party");
             game();
         }else if(mode == 2){ //if player want to know how to play
             gamehelp();
-            BatNavlog("User ask game help");
         }
     }
-    BatNavlog("end of Program");
     return 0;
 }
