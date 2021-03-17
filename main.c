@@ -8,22 +8,23 @@ Version : beta 1.0
 #include <stdlib.h>
 #include <windows.h>
 #include <time.h>
-#include <stdarg.h>
-#include <string.h>
 #include <math.h>
+#include <string.h>
 
 int x = 0;
 int y = 0;
 int win = 0;
-int nbessai = 0;
+int nbtry = 0;
 int nberreur = 0;
 int nbjuste = 0;
-char ychar;
+char ychar[1];
 int mode = 0;
 char o[2];
 int hours, minutes, seconds, day, month, year;
+char scorechar[3][3];
 char username[100];
-FILE* fichier = NULL;
+FILE* BatLog = NULL;
+FILE* scorefile = NULL;
 
 
 //1 : porte-avion (5 cases)
@@ -61,11 +62,24 @@ int tab[10][10] = {
         {0,0,0,0,0,0,0,0,0,0}
 };
 
-/*@function: write in log file
- *@param: Text to write in log
+/*@function: write in score and player file
+ *@param1: player score
  * */
-void BatNavlog(const char *BatNavlog){
-    fichier = fopen("log.txt", "a+");
+void writescore(int PlayerScore){
+    scorefile = fopen("score.txt", "a+");
+
+    if (scorefile != NULL) {
+        fprintf(scorefile,"%s : %d",username,PlayerScore);
+    }
+}
+
+/*@function: write in log file
+ *@param1: Text to write in log
+ * */
+void BatNavlog(const char *BatNavlog,const char *VarSupl){
+    char *batnav;
+
+    BatLog = fopen("log.txt", "a+");
 
     time_t now;
     time(&now);
@@ -78,11 +92,11 @@ void BatNavlog(const char *BatNavlog){
     month = local->tm_mon + 1;       // get month of year (0 to 11)
     year = local->tm_year + 1900;    // get year since 1900
 
-    if (fichier != NULL) {
-        fprintf(fichier,"[%02d/%02d/%d %02d:%02d:%02d]: %s\n", day, month, year, hours, minutes, seconds, BatNavlog);
+    if (BatLog != NULL) {
+        fprintf(BatLog,"[%02d/%02d/%d %02d:%02d:%02d]: %s %s\n", day, month, year, hours, minutes, seconds, BatNavlog,VarSupl);
     }
 
-    fclose(fichier);
+    fclose(BatLog);
 }
 
 /* @function : transform number to char on the graphic table
@@ -205,7 +219,14 @@ void winscreen(){
            "\n"
            "\n"
            "\n"
-           "\n", nbessai, nberreur,nbjuste);
+           "\n", nbtry, nberreur,nbjuste);
+    sprintf(scorechar[0],"%d", nbtry);
+    BatNavlog("Number of try : ",scorechar[0]);
+    sprintf(scorechar[1],"%d", nberreur);
+    BatNavlog("Number of error : ",scorechar[1]);
+    sprintf(scorechar[2],"%d", nbjuste);
+    BatNavlog("Number of hit : ",scorechar[2]);
+    writescore(nbtry);
     system("pause");//wait
     system("cls");//clear
 }
@@ -243,6 +264,7 @@ void gamehelp(){
 /* @function : It's the games
 */
 void game(){
+    BatNavlog("New Party","");
     while (win == 0){ //wait player win
         system("cls");//clear
         textbataillenavale();
@@ -250,36 +272,40 @@ void game(){
 
         checkcouler();
         if (win != 0) continue;
-        nbessai+=1;
+        nbtry+=1;
         do {
             printf("\nColumn : ");
             scanf("%s", &o);
             x = strtol( o, NULL, 10 );
             if (x > 10 || x == 0) printf("the number need to be between 1 - 10 !"); //check if number is between 1 - 10 then error message
         }while (x > 10 || x == 0); //check if number is between 1 - 10
+        BatNavlog("X : ",o);
 
         do {
             printf("\nLine : ");
             scanf("%s", &ychar);
-            if (ychar >= 65 && ychar <= 74 ) ychar+=32;
-            y = (int) (ychar) - 96;
-            if (ychar <= 96 || ychar >= 107) printf("The character need to be between A and J !"); //check if char is between A - J then error message
-        } while (ychar <= 96 || ychar >= 107); //check if char is between A - J
+            if (ychar[0] >= 65 && ychar[0] <= 74 ) ychar[0]+=32;
+            y = (int) (ychar[0]) - 96;
+            if (ychar[0] <= 96 || ychar[0] >= 107) printf("The character need to be between A and J !"); //check if char is between A - J then error message
+        } while (ychar[0] <= 96 || ychar[0] >= 107); //check if char is between A - J
+        BatNavlog("Y : ",ychar);
 
         switch (bateau[y-1][x-1]) { //switch to write touch or not touch
             case 0:
                 tab[y-1][x-1] = 1;
                 nberreur+=1;
+                BatNavlog("Not touch","");
                 break;
             default:
                 tab[y-1][x-1] = 2;
                 nbjuste+=1;
+                BatNavlog("touch","");
                 break;
         }
 
     }
     winscreen();
-    nbessai = 0;//
+    nbtry = 0;//
     nbjuste = 0;//  <- reset counter
     nberreur = 0;//
 }
@@ -291,6 +317,7 @@ int main() {
     textbataillenavale();
     printf("\n\nWhat's your name ? ");
     scanf("%s",&username);
+    BatNavlog("New User : ",username);
 
     while (mode != 3) { //if player do not select quit
         do {
