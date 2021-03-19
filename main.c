@@ -26,12 +26,11 @@ char username[100];
 FILE* BatLog = NULL;
 FILE* scorefile = NULL;
 
-
 //1 : porte-avion (5 cases)
-//2 : croiseur (4 cases)
-//3 : contre-torpilleur (3 cases)
+//2 : cruiser (4 cases)
+//3 : contre-torpedoboat (3 cases)
 //4 : sous-marin (3 cases)
-//5 : torpilleur (2 cases)
+//5 : torpedoboat (2 cases)
 int bateau[10][10] = {
         {1,2,3,4,5,0,0,0,0,0},
         {1,2,3,4,5,0,0,0,0,0},
@@ -69,8 +68,39 @@ void writescore(int PlayerScore){
     scorefile = fopen("score.txt", "a+");
 
     if (scorefile != NULL) {
-        fprintf(scorefile,"%s : %d",username,PlayerScore);
+        fprintf(scorefile,"%s : %d\n",username,PlayerScore);
     }
+    fclose(scorefile);
+}
+
+/* @function : Bataille navale Title
+*/
+void textbataillenavale(){
+    printf(" ____        _        _ _ _        _   _                  _\n"
+           "| __ )  __ _| |_ __ _(_) | | ___  | \\ | | __ ___   ____ _| | ___\n"
+           "|  _ \\ / _` | __/ _` | | | |/ _ \\ |  \\| |/ _` \\ \\ / / _` | |/ _ \\\n"
+           "| |_) | (_| | || (_| | | | |  __/ | |\\  | (_| |\\ V / (_| | |  __/\n"
+           "|____/ \\__,_|\\__\\__,_|_|_|_|\\___| |_| \\_|\\__,_| \\_/ \\__,_|_|\\___|\n");
+}
+
+void allscore(){
+    system("cls");//clear
+    textbataillenavale();
+
+    printf("\n");
+
+    scorefile = fopen("score.txt", "r");
+    char charaterInFile;
+
+    charaterInFile = fgetc(scorefile);
+    while (charaterInFile != EOF) { //continue tant que il y a pas d'erreur
+        printf("%c", charaterInFile);
+        charaterInFile = fgetc(scorefile);
+    }
+    fclose(scorefile);
+    printf("\n");
+
+    system("pause");//wait
 }
 
 /*@function: write in log file
@@ -130,52 +160,52 @@ void tableau(){
 
 /* @function : check if boat is sink
 */
-void checkcouler(){
-    int porteavion = 0, croiseur = 0, contretorpilleur = 0, sousmarin = 0, torpilleur = 0,porteaviont = 0, croiseurt = 0, contretorpilleurt = 0, sousmarint = 0, torpilleurt = 0;
+void checksinkwin(){
+    int aircraftcarrier = 0, cruiser = 0, destroyer = 0, submarine = 0, torpedoboat = 0,aircraftcarriert = 0, cruisert = 0, destroyert = 0, submarinet = 0, torpedoboatt = 0;
 
     for (int i = 0; i < 10; i++) {//colone
         for (int j = 0; j < 10; j++) { //line
             switch (bateau[i][j]) { //calculate case of the boat on the 2 table
                 case 1:
-                    porteavion++;
-                    if(tab[i][j] == 2){porteaviont++;}
+                    aircraftcarrier++;
+                    if(tab[i][j] == 2){aircraftcarriert++;}
                     break;
                 case 2:
-                    croiseur++;
-                    if(tab[i][j] == 2){croiseurt++;}
+                    cruiser++;
+                    if(tab[i][j] == 2){cruisert++;}
                     break;
                 case 3:
-                    contretorpilleur++;
-                    if(tab[i][j] == 2){contretorpilleurt++;}
+                    destroyer++;
+                    if(tab[i][j] == 2){destroyert++;}
                     break;
                 case 4:
-                    sousmarin++;
-                    if(tab[i][j] == 2){sousmarint++;}
+                    submarine++;
+                    if(tab[i][j] == 2){submarinet++;}
                     break;
                 case 5:
-                    torpilleur++;
-                    if(tab[i][j] == 2){torpilleurt++;}
+                    torpedoboat++;
+                    if(tab[i][j] == 2){torpedoboatt++;}
                     break;
             }
         }
     }
-    if (porteavion == porteaviont){ //check if is equals to touch boat then boat is sink
+    if (aircraftcarrier == aircraftcarriert){ //check if is equals to touch boat then boat is sink
         printf("\nyou sunk successfully an ennemy aircraft carrier\n");
     }
-    if (croiseur == croiseurt){//check if is equals to touch boat then boat is sink
+    if (cruiser == cruisert){//check if is equals to touch boat then boat is sink
         printf("\nyou sunk successfully an ennemy cruiser\n");
     }
-    if (contretorpilleur == contretorpilleurt){//check if is equals to touch boat then boat is sink
+    if (destroyer == destroyert){//check if is equals to touch boat then boat is sink
         printf("\nyou sunk successfully an ennemy destroyer\n");
     }
-    if (sousmarin == sousmarint){//check if is equals to touch boat  then boat is sink
+    if (submarine == submarinet){//check if is equals to touch boat  then boat is sink
         printf("\nyou sunk successfully an ennemy submarine\n");
     }
-    if (torpilleur == torpilleurt){//check if is equals to touch boat then boat is sink
+    if (torpedoboat == torpedoboatt){//check if is equals to touch boat then boat is sink
         printf("\nyou sunk successfully an ennemy torpedo boat\n");
     }
     //check if all boat is equals to touch boat then win
-    if (porteavion == porteaviont && croiseur == croiseurt && contretorpilleur == contretorpilleurt && sousmarin == sousmarint && torpilleur == torpilleurt){
+    if (aircraftcarrier == aircraftcarriert && cruiser == cruisert && destroyer == destroyert && submarine == submarinet && torpedoboat == torpedoboatt){
         win = 1;
     }
 }
@@ -231,16 +261,6 @@ void winscreen(){
     system("cls");//clear
 }
 
-/* @function : Bataille navale Title
-*/
-void textbataillenavale(){
-    printf(" ____        _        _ _ _        _   _                  _\n"
-           "| __ )  __ _| |_ __ _(_) | | ___  | \\ | | __ ___   ____ _| | ___\n"
-           "|  _ \\ / _` | __/ _` | | | |/ _ \\ |  \\| |/ _` \\ \\ / / _` | |/ _ \\\n"
-           "| |_) | (_| | || (_| | | | |  __/ | |\\  | (_| |\\ V / (_| | |  __/\n"
-           "|____/ \\__,_|\\__\\__,_|_|_|_|\\___| |_| \\_|\\__,_| \\_/ \\__,_|_|\\___|\n");
-}
-
 /* @function : Show game help
 */
 void gamehelp(){
@@ -270,7 +290,7 @@ void game(){
         textbataillenavale();
         tableau();
 
-        checkcouler();
+        checksinkwin();
         if (win != 0) continue;
         nbtry+=1;
         do {
@@ -310,29 +330,34 @@ void game(){
     nberreur = 0;//
 }
 
-int main() {
-    SetConsoleOutputCP(65001);
-
+void name(){
     system("cls");//clear
     textbataillenavale();
     printf("\n\nWhat's your name ? ");
     scanf("%s",&username);
     BatNavlog("New User : ",username);
+}
 
-    while (mode != 3) { //if player do not select quit
+int main() {
+    SetConsoleOutputCP(65001);
+
+    name();
+
+    while (mode != 5) { //if player do not select quit
         do {
             system("cls");//clear
             textbataillenavale();
-            printf("\n\nWhat do you want to do ? \n  1. Play\n  2. game help\n  3. quit\n ");
+            printf("\n\nWhat do you want to do ? \n  1. Play\n  2. game help\n  3. Print all score\n  4. Change name\n  5. quit\n ");
             scanf("%s",&o);
             mode = strtol( o, NULL, 10 );
-            if(mode > 10 || mode == 0){printf("\nThe number isn't between 1 - 3 !\n"); system("pause");}
+            if(mode > 5 || mode == 0){printf("\nThe number isn't between 1 - 5 !\n"); system("pause");}
         }while (mode > 10 || mode == 0); //check if number is between 1 - 3
 
-        if (mode == 1){ //if player want to play a game
-            game();
-        }else if(mode == 2){ //if player want to know how to play
-            gamehelp();
+        switch (mode) {
+            case 1: game(); break;
+            case 2: gamehelp(); break;
+            case 3: allscore(); break;
+            case 4: name(); break;
         }
     }
     return 0;
