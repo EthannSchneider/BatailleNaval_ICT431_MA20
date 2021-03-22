@@ -65,9 +65,9 @@ int tab[10][10] = {
  *@param1: player score
  * */
 void writescore(int PlayerScore){
-    scorefile = fopen("score.txt", "a+");
+    scorefile = fopen("score.txt", "a+"); //a+ is to write in a new line
 
-    if (scorefile != NULL) {
+    if (scorefile != NULL) { //continue while it's not end of file
         fprintf(scorefile,"%s : %d\n",username,PlayerScore);
     }
     fclose(scorefile);
@@ -82,7 +82,8 @@ void textbataillenavale(){
            "| |_) | (_| | || (_| | | | |  __/ | |\\  | (_| |\\ V / (_| | |  __/\n"
            "|____/ \\__,_|\\__\\__,_|_|_|_|\\___| |_| \\_|\\__,_| \\_/ \\__,_|_|\\___|\n");
 }
-
+/* @function : show all score
+*/
 void allscore(){
     system("cls");//clear
     textbataillenavale();
@@ -93,7 +94,7 @@ void allscore(){
     char charaterInFile;
 
     charaterInFile = fgetc(scorefile);
-    while (charaterInFile != EOF) { //continue tant que il y a pas d'erreur
+    while (charaterInFile != EOF) { //continue while it's not end of file
         printf("%c", charaterInFile);
         charaterInFile = fgetc(scorefile);
     }
@@ -109,7 +110,7 @@ void allscore(){
 void BatNavlog(const char *BatNavlog,const char *VarSupl){
     char *batnav;
 
-    BatLog = fopen("log.txt", "a+");
+    BatLog = fopen("log.txt", "a+");//a+ is to write in a new line
 
     time_t now;
     time(&now);
@@ -333,6 +334,8 @@ void game(){
     resettab();
 }
 
+/* @function : function to reset tab
+*/
 void resettab(){
   for (int i = 0; i < 10; i++) {
     for (int y = 0; y < 10; y++) {
@@ -341,6 +344,8 @@ void resettab(){
   }
 }
 
+/* @function : function to set a name
+*/
 void name(){
     system("cls");//clear
     textbataillenavale();
@@ -349,6 +354,8 @@ void name(){
     BatNavlog("New User : ",username);
 }
 
+/* @function : Main function
+*/
 int main() {
     SetConsoleOutputCP(65001);
 
