@@ -1,5 +1,5 @@
 /*
-Name : Bataille naval
+Name : Bataille navale
 Author : Ethann Schneider
 Version : beta 1.0
 */
@@ -168,23 +168,23 @@ void checksinkwin(){
             switch (bateau[i][j]) { //calculate case of the boat on the 2 table
                 case 1:
                     aircraftcarrier++;
-                    if(tab[i][j] == 2){aircraftcarriert++;}
+                    if(tab[i][j] == 2) aircraftcarriert++;
                     break;
                 case 2:
                     cruiser++;
-                    if(tab[i][j] == 2){cruisert++;}
+                    if(tab[i][j] == 2) cruisert++;
                     break;
                 case 3:
                     destroyer++;
-                    if(tab[i][j] == 2){destroyert++;}
+                    if(tab[i][j] == 2) destroyert++;
                     break;
                 case 4:
                     submarine++;
-                    if(tab[i][j] == 2){submarinet++;}
+                    if(tab[i][j] == 2) submarinet++;
                     break;
                 case 5:
                     torpedoboat++;
-                    if(tab[i][j] == 2){torpedoboatt++;}
+                    if(tab[i][j] == 2) torpedoboatt++;
                     break;
             }
         }
@@ -292,6 +292,7 @@ void game(){
 
         checksinkwin();
         if (win != 0) continue;
+
         nbtry+=1;
         do {
             printf("\nColumn : ");
@@ -325,9 +326,19 @@ void game(){
 
     }
     winscreen();
+    win = 0;
     nbtry = 0;//
     nbjuste = 0;//  <- reset counter
     nberreur = 0;//
+    resettab();
+}
+
+void resettab(){
+  for (int i = 0; i < 10; i++) {
+    for (int y = 0; y < 10; y++) {
+      tab[i][y] = 0;
+    }
+  }
 }
 
 void name(){
