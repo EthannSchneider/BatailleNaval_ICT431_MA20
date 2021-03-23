@@ -31,12 +31,12 @@ FILE* scorefile = NULL;
 //3 : contre-torpedoboat (3 cases)
 //4 : sous-marin (3 cases)
 //5 : torpedoboat (2 cases)
-int bateau[10][10] = {
-        {1,2,3,4,5,0,0,0,0,0},
-        {1,2,3,4,5,0,0,0,0,0},
-        {1,2,3,4,0,0,0,0,0,0},
-        {1,2,0,0,0,0,0,0,0,0},
-        {1,0,0,0,0,0,0,0,0,0},
+int boat[10][10] = {
+        {0,0,0,0,0,0,0,0,0,0},
+        {0,0,0,0,0,0,0,0,0,0},
+        {0,0,0,0,0,0,0,0,0,0},
+        {0,0,0,0,0,0,0,0,0,0},
+        {0,0,0,0,0,0,0,0,0,0},
         {0,0,0,0,0,0,0,0,0,0},
         {0,0,0,0,0,0,0,0,0,0},
         {0,0,0,0,0,0,0,0,0,0},
@@ -82,6 +82,7 @@ void textbataillenavale(){
            "| |_) | (_| | || (_| | | | |  __/ | |\\  | (_| |\\ V / (_| | |  __/\n"
            "|____/ \\__,_|\\__\\__,_|_|_|_|\\___| |_| \\_|\\__,_| \\_/ \\__,_|_|\\___|\n");
 }
+
 /* @function : show all score
 */
 void allscore(){
@@ -130,6 +131,55 @@ void BatNavlog(const char *BatNavlog,const char *VarSupl){
     fclose(BatLog);
 }
 
+/*@function: to generate the random boat table
+ * */
+void tableaualea(){
+    int direction = 0;
+    int coordx = 0;
+    int coordy = 0;
+    int batalea[5][2];
+    int sizebat[5]={5,4,3,3,2};
+    int badcoords[100][2];
+    int badcoordcalc = 0;
+    int test = 0;
+
+    for (int y = 5; y >= 1; y--) {
+        do {
+            test = 1;
+            direction = rand() % 2;
+            coordx = rand() % (y-10); // - case - 10
+            coordy = rand() % (y-10); // - case - 10
+            for (int i = 0; i < 100; ++i) {
+                for (int j = 0; j < sizebat[y-1]; ++j) { // - case
+                    if (badcoords[i][0] == coordx && badcoords[i][1] == coordy+j || badcoords[i][0] == coordx+j && badcoords[i][1] == coordy){
+                        test = 0;
+                    }
+                }
+            }
+        }while (test != 1);
+
+        for (int i = 0; i < sizebat[y-1]; ++i) { // - case
+            switch (direction) {
+                case 0:
+                    batalea[i][0] = coordx;
+                    batalea[i][1] = coordy+i;
+                    badcoords[badcoordcalc][0] = coordx;
+                    badcoords[badcoordcalc][1] = coordy+i;
+                    break;
+                case 1:
+                    batalea[i][0] = coordx+i;
+                    batalea[i][1] = coordy;
+                    badcoords[badcoordcalc][0] = coordx+i;
+                    badcoords[badcoordcalc][1] = coordy;
+                    break;
+            }
+            boat[batalea[i][0]][batalea[i][1]] = y; // - boat
+            badcoordcalc+=1;
+        }
+    }
+
+}
+
 /* @function : transform number to char on the graphic table
 */
 void numtochar(int i){
@@ -166,7 +216,7 @@ void checksinkwin(){
 
     for (int i = 0; i < 10; i++) {//colone
         for (int j = 0; j < 10; j++) { //line
-            switch (bateau[i][j]) { //calculate case of the boat on the 2 table
+            switch (boat[i][j]) { //calculate case of the boat on the 2 table
                 case 1:
                     aircraftcarrier++;
                     if(tab[i][j] == 2) aircraftcarriert++;
@@ -282,10 +332,21 @@ void gamehelp(){
     system("cls");//clear
 }
 
+/* @function : function to reset tab
+*/
+void resettab(){
+    for (int i = 0; i < 10; i++) {
+        for (int y = 0; y < 10; y++) {
+            tab[i][y] = 0;
+        }
+    }
+}
+
 /* @function : It's the games
 */
 void game(){
     BatNavlog("New Party","");
+    tableaualea();
     while (win == 0){ //wait player win
         system("cls");//clear
         textbataillenavale();
@@ -312,7 +373,7 @@ void game(){
         } while (ychar[0] <= 96 || ychar[0] >= 107); //check if char is between A - J
         BatNavlog("Y : ",ychar);
 
-        switch (bateau[y-1][x-1]) { //switch to write touch or not touch
+        switch (boat[y-1][x-1]) { //switch to write touch or not touch
             case 0:
                 tab[y-1][x-1] = 1;
                 nberreur+=1;
@@ -332,16 +393,6 @@ void game(){
     nbjuste = 0;//  <- reset counter
     nberreur = 0;//
     resettab();
-}
-
-/* @function : function to reset tab
-*/
-void resettab(){
-  for (int i = 0; i < 10; i++) {
-    for (int y = 0; y < 10; y++) {
-      tab[i][y] = 0;
-    }
-  }
 }
 
 /* @function : function to set a name

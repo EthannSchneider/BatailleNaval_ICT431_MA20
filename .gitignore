@@ -41,6 +41,8 @@
 cmake-build-debug/
 
 autogit.sh
+log.txt
+score.txt
 
 # Mongo Explorer plugin
 .idea/**/mongoSettings.xml
