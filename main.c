@@ -47,7 +47,6 @@ int boat[10][10] = {
 //0 : pas encore visé
 //1 : vide
 //2 : touché
-//3 : couler
 int tab[10][10] = {
         {0,0,0,0,0,0,0,0,0,0},
         {0,0,0,0,0,0,0,0,0,0},
@@ -61,9 +60,10 @@ int tab[10][10] = {
         {0,0,0,0,0,0,0,0,0,0}
 };
 
-/*@function: write in score and player file
- *@param1: player score
- * */
+/**
+ * description: write in score and player file
+ * @param PlayerScore
+ */
 void writescore(int PlayerScore){
     scorefile = fopen("score.txt", "a+"); //a+ is to write in a new line
 
@@ -147,8 +147,8 @@ void tableaualea(){
         do {
             test = 1;
             direction = rand() % 2;
-            coordx = rand() % (y-10); // - case - 10
-            coordy = rand() % (y-10); // - case - 10
+            coordx = rand() % (10-sizebat[y]); // - case - 10
+            coordy = rand() % (10-sizebat[y]); // - case - 10
             for (int i = 0; i < 100; ++i) {
                 for (int j = 0; j < sizebat[y-1]; ++j) { // - case
                     if (badcoords[i][0] == coordx && badcoords[i][1] == coordy+j || badcoords[i][0] == coordx+j && badcoords[i][1] == coordy){
@@ -345,11 +345,15 @@ void resettab(){
 /* @function : It's the games
 */
 void game(){
+
+    srand( (unsigned)time(NULL));
+
     BatNavlog("New Party","");
     tableaualea();
     while (win == 0){ //wait player win
         system("cls");//clear
         textbataillenavale();
+
         tableau();
 
         checksinkwin();
