@@ -25,7 +25,9 @@ char scorechar[3][3];
 char username[100];
 FILE* BatLog = NULL;
 FILE* scorefile = NULL;
+FILE* boattabfile = NULL;
 
+//<editor-fold desc="Boat">
 //1 : porte-avion (5 cases)
 //2 : cruiser (4 cases)
 //3 : contre-torpedoboat (3 cases)
@@ -43,7 +45,9 @@ int boat[10][10] = {
         {0,0,0,0,0,0,0,0,0,0},
         {0,0,0,0,0,0,0,0,0,0}
 };
+//</editor-fold>
 
+//<editor-fold desc="Tab">
 //0 : pas encore visé
 //1 : vide
 //2 : touché
@@ -59,6 +63,7 @@ int tab[10][10] = {
         {0,0,0,0,0,0,0,0,0,0},
         {0,0,0,0,0,0,0,0,0,0}
 };
+//</editor-fold>
 
 /**
  * description: write in score and player file
@@ -73,7 +78,8 @@ void writescore(int PlayerScore){
     fclose(scorefile);
 }
 
-/* @function : Bataille navale Title
+/**
+ * description: Bataille navale Title
 */
 void textbataillenavale(){
     printf(" ____        _        _ _ _        _   _                  _\n"
@@ -83,7 +89,8 @@ void textbataillenavale(){
            "|____/ \\__,_|\\__\\__,_|_|_|_|\\___| |_| \\_|\\__,_| \\_/ \\__,_|_|\\___|\n");
 }
 
-/* @function : show all score
+/**
+ * description:  show all score
 */
 void allscore(){
     system("cls");//clear
@@ -105,7 +112,8 @@ void allscore(){
     system("pause");//wait
 }
 
-/*@function: write in log file
+/**
+ * description:  write in log file
  *@param1: Text to write in log
  * */
 void BatNavlog(const char *BatNavlog,const char *VarSupl){
@@ -131,8 +139,43 @@ void BatNavlog(const char *BatNavlog,const char *VarSupl){
     fclose(BatLog);
 }
 
-/*@function: to generate the random boat table
- * */
+/**
+ * description: to generate tab with file
+ */
+void tabfile(){
+    int fileToChoose = 0;
+    char fileChoose[50];
+
+    fileToChoose = rand() % 4 + 1;
+
+    sprintf(fileChoose,"tab/tab%d",fileToChoose);
+
+    boattabfile = fopen(fileChoose,"r");
+
+    char charaterInFile;
+
+    charaterInFile = fgetc(boattabfile);
+    int itab = 0;
+    int ytab = 0;
+    while (charaterInFile != EOF) { //continue while it's not end of file
+        int charct = charaterInFile;
+        boat[ytab][itab] = charct-48;
+        charaterInFile = fgetc(boattabfile);
+        if(itab == 9){
+            itab = 0;
+            ytab++;
+        }else{
+            itab++;
+        }
+    }
+
+    fclose(boattabfile);
+}
+
+/**
+ * description: to generate the random boat table
+ * (unuse because it's not in the Specifications)
+ *
 void tableaualea(){
     int direction = 0;
     int coordx = 0;
@@ -147,8 +190,8 @@ void tableaualea(){
         do {
             test = 1;
             direction = rand() % 2;
-            coordx = rand() % (10-sizebat[y]); // - case - 10
-            coordy = rand() % (10-sizebat[y]); // - case - 10
+            coordx = rand() % 6; // - case - 10
+            coordy = rand() % 6; // - case - 10
             for (int i = 0; i < 100; ++i) {
                 for (int j = 0; j < sizebat[y-1]; ++j) { // - case
                     if (badcoords[i][0] == coordx && badcoords[i][1] == coordy+j || badcoords[i][0] == coordx+j && badcoords[i][1] == coordy){
@@ -172,44 +215,51 @@ void tableaualea(){
                     badcoords[badcoordcalc][0] = coordx+i;
                     badcoords[badcoordcalc][1] = coordy;
                     break;
+                default:
+                    break;
             }
             boat[batalea[i][0]][batalea[i][1]] = y; // - boat
             badcoordcalc+=1;
         }
     }
 
-}
+} */
 
-/* @function : transform number to char on the graphic table
+/**
+ * description: transform number to char on the graphic table
 */
-void numtochar(int i){
+char numtochar(int i){
     switch (i) {
-        case 0: printf("   ║"); break; //nothing
-        case 2: printf(" O ║"); break; //not touch
-        default: printf(" X ║"); break; //touch
+        case 0: return ' '; break; //nothing
+        case 2: return 'O'; break; //not touch
+        default: return 'X'; break; //touch
     }
 }
 
-/* @function : to show the table
+/**
+ * description:  to show the table
 */
 void tableau(){
     printf("     1   2   3   4   5   6   7   8   9  10\n");
     printf("   ╔═══╦═══╦═══╦═══╦═══╦═══╦═══╦═══╦═══╦═══╗\n %c ║",97); //first line
     for (int i = 0; i < 10; i++) { //seconde line
-        numtochar(tab[0][i]);
+        printf(" %c ║",numtochar(tab[0][i]));
+        //printf(" %d ║", boat[y][i]);
     }
     printf("\n");
     for (int y = 1; y < 10; y++) { // center line
         printf("   ╠═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╣\n %c ║",y+97);
         for (int i = 0; i < 10; i++) {
-            numtochar(tab[y][i]);
+            printf(" %c ║",numtochar(tab[y][i]));
+            //printf(" %d ║", boat[y][i]);
         }
         printf("\n");
     }
     printf("   ╚═══╩═══╩═══╩═══╩═══╩═══╩═══╩═══╩═══╩═══╝\n"); //last line
 }
 
-/* @function : check if boat is sink
+/**
+ * description: check if boat is sink
 */
 void checksinkwin(){
     int aircraftcarrier = 0, cruiser = 0, destroyer = 0, submarine = 0, torpedoboat = 0,aircraftcarriert = 0, cruisert = 0, destroyert = 0, submarinet = 0, torpedoboatt = 0;
@@ -261,7 +311,8 @@ void checksinkwin(){
     }
 }
 
-/* @function : show the win screen when player win
+/**
+ * description:  show the win screen when player win
 */
 void winscreen(){
     system("cls");//clear
@@ -312,7 +363,8 @@ void winscreen(){
     system("cls");//clear
 }
 
-/* @function : Show game help
+/**
+ * description:  Show game help
 */
 void gamehelp(){
     system("cls"); //clear
@@ -332,7 +384,8 @@ void gamehelp(){
     system("cls");//clear
 }
 
-/* @function : function to reset tab
+/**
+ * description: function to reset tab
 */
 void resettab(){
     for (int i = 0; i < 10; i++) {
@@ -342,14 +395,14 @@ void resettab(){
     }
 }
 
-/* @function : It's the games
+/**
+ * description:  It's the games
 */
 void game(){
-
-    srand( (unsigned)time(NULL));
-
     BatNavlog("New Party","");
-    tableaualea();
+
+    tabfile();
+
     while (win == 0){ //wait player win
         system("cls");//clear
         textbataillenavale();
@@ -361,36 +414,44 @@ void game(){
 
         nbtry+=1;
         do {
-            printf("\nColumn : ");
-            scanf("%s", &o);
-            x = strtol( o, NULL, 10 );
-            if (x > 10 || x == 0) printf("the number need to be between 1 - 10 !"); //check if number is between 1 - 10 then error message
-        }while (x > 10 || x == 0); //check if number is between 1 - 10
-        BatNavlog("X : ",o);
+            do {
+                printf("\nColumn : ");
+                scanf("%s", &o);
+                x = strtol( o, NULL, 10 );
+                if (x > 10 || x == 0) printf("the number need to be between 1 - 10 !"); //check if number is between 1 - 10 then error message
+            }while (x > 10 || x == 0); //check if number is between 1 - 10
+            BatNavlog("X : ",o);
 
-        do {
-            printf("\nLine : ");
-            scanf("%s", &ychar);
-            if (ychar[0] >= 65 && ychar[0] <= 74 ) ychar[0]+=32;
-            y = (int) (ychar[0]) - 96;
-            if (ychar[0] <= 96 || ychar[0] >= 107) printf("The character need to be between A and J !"); //check if char is between A - J then error message
-        } while (ychar[0] <= 96 || ychar[0] >= 107); //check if char is between A - J
-        BatNavlog("Y : ",ychar);
+            do {
+                printf("\nLine : ");
+                scanf("%s", &ychar);
+                if (ychar[0] >= 65 && ychar[0] <= 74 ) ychar[0]+=32;
+                y = (int) (ychar[0]) - 96;
+                if (ychar[0] <= 96 || ychar[0] >= 107) printf("The character need to be between A and J !"); //check if char is between A - J then error message
+            } while (ychar[0] <= 96 || ychar[0] >= 107); //check if char is between A - J
+            BatNavlog("Y : ",ychar);
+
+            if (tab[y-1][x-1] >= 1) printf("Allready touch !");
+        }while (tab[y-1][x-1] >= 1);
 
         switch (boat[y-1][x-1]) { //switch to write touch or not touch
             case 0:
                 tab[y-1][x-1] = 1;
                 nberreur+=1;
                 BatNavlog("Not touch","");
+                printf("\nNot touch\n");
                 break;
             default:
                 tab[y-1][x-1] = 2;
                 nbjuste+=1;
                 BatNavlog("touch","");
+                printf("\nTouch\n");
                 break;
         }
+        system("pause");
 
     }
+    system("pause");
     winscreen();
     win = 0;
     nbtry = 0;//
@@ -399,7 +460,8 @@ void game(){
     resettab();
 }
 
-/* @function : function to set a name
+/**
+ * description:  function to set a name
 */
 void name(){
     system("cls");//clear
@@ -409,10 +471,13 @@ void name(){
     BatNavlog("New User : ",username);
 }
 
-/* @function : Main function
+/**
+ * description: Main function
 */
 int main() {
     SetConsoleOutputCP(65001);
+
+    srand( (unsigned)time(NULL));
 
     name();
 
