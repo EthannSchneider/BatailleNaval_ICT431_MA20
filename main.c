@@ -8,6 +8,7 @@ Version : beta 1.0
 #include <stdlib.h>
 #include <windows.h>
 #include <time.h>
+#include <unistd.h>
 #include <math.h>
 #include <string.h>
 
@@ -471,6 +472,43 @@ void name(){
     BatNavlog("New User : ",username);
 }
 
+void space(int i){
+    for (int j = 0; j < i; ++j) {
+        printf(" ");
+    }
+}
+
+void quit(){
+    int a = 0;
+    for (int i = 1; i < 30; ++i) {
+        system("cls");//clear
+        textbataillenavale();
+        printf("\n\n\n\n");
+
+        space(i);
+        printf("                  ~.\n");
+        space(i);
+        printf("           Ya...___|__..aab     .   .\n");
+        space(i);
+        printf("            Y88a  Y88o  Y88a   (     )\n");
+        space(i);
+        printf("             Y88b  Y88b  Y88b   `.oo'\n");
+        space(i);
+        printf("             :888  :888  :888  ( (`-'\n");
+        space(i);
+        printf("    .---.    d88P  d88P  d88P   `.`.\n");
+        space(i);
+        printf("   / .-._)  d8P'\"\"\"|\"\"\"'-Y8P      `.`.\n");
+        space(i);
+        printf("  ( (`._) .-.  .-. |.-.  .-.  .-.   ) )\n");
+        space(i);
+        printf("   \\ `---( O )( O )( O )( O )( O )-' /\n");
+        space(i);
+        printf("    `.    `-'  `-'  `-'  `-'  `-'  .' CJ");
+        sleep(0.7);
+    }
+}
+
 /**
  * description: Main function
 */
@@ -498,5 +536,6 @@ int main() {
             case 4: name(); break;
         }
     }
+    quit();
     return 0;
 }
