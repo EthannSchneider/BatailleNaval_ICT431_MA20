@@ -118,8 +118,6 @@ void allscore(){
  *@param1: Text to write in log
  * */
 void BatNavlog(const char *BatNavlog,const char *VarSupl){
-    char *batnav;
-
     BatLog = fopen("log.txt", "a+");//a+ is to write in a new line
 
     time_t now;
