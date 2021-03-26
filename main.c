@@ -470,14 +470,20 @@ void name(){
     BatNavlog("New User : ",username);
 }
 
+/**
+ * description: print number of space
+ * @param i number of space to write
+ */
 void space(int i){
     for (int j = 0; j < i; ++j) {
         printf(" ");
     }
 }
 
+/**
+ * description: Boat animation to say goodbye to the user
+ */
 void quit(){
-    int a = 0;
     for (int i = 1; i < 30; ++i) {
         system("cls");//clear
         textbataillenavale();
