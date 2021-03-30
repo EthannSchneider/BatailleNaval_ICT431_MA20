@@ -517,7 +517,7 @@ void quit(){
  * description: Main function
 */
 int main() {
-    SetConsoleOutputCP(65001);
+    SetConsoleOutputCP(65001); //UTF-8
 
     srand( (unsigned)time(NULL));
 
